@@ -46,3 +46,11 @@ class UploadView(View):
         return render(request, 'upload_image.html', {
             'success': True
         })
+
+
+class GitTest(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
