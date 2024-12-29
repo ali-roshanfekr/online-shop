@@ -27,6 +27,7 @@ urlpatterns = [
     path('users/', include('user_module.urls')),
     path('products/', include('product_module.urls')),
     path('contact/', include('contact_module.urls')),
+    path('blog-module/', include('blog_module.urls'))
 
 ]
 
