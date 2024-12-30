@@ -1,10 +1,9 @@
 from django.db import models
 
-# Create your models here.
 
 class CategoryModel(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=300, null=True, db_index=True, blank=True)
+    title = models.CharField(max_length=300, verbose_name='عنوان')
+    slug = models.SlugField(max_length=300, null=True, db_index=True, blank=True, verbose_name='عنوان در شبکه')
 
     def save(self, *args, **kwargs):
         self.slug = self.title.replace(' ', '-')
@@ -17,9 +16,10 @@ class CategoryModel(models.Model):
         verbose_name = 'دسته بندی'
         verbose_name_plural = 'دسته بندی ها'
 
+
 class BrandModel(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=300, null=True, db_index=True, blank=True)
+    title = models.CharField(max_length=300, verbose_name='عنوان')
+    slug = models.SlugField(max_length=300, null=True, db_index=True, blank=True, verbose_name='عنوان در شبکه')
 
     def save(self, *args, **kwargs):
         self.slug = self.title.replace(' ', '-')
@@ -32,15 +32,16 @@ class BrandModel(models.Model):
         verbose_name = 'برند'
         verbose_name_plural = 'برند ها'
 
+
 class ProductModel(models.Model):
-    title = models.CharField(max_length=200)
-    price = models.IntegerField()
-    descript = models.TextField()
-    is_active = models.BooleanField(default=True)
-    slug = models.SlugField(max_length=300, null=True, db_index=True, blank=True)
-    brand = models.ManyToManyField(BrandModel)
-    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, null=True)
-    image = models.ImageField(upload_to='uploads/product_img/', null=True)
+    title = models.CharField(max_length=300, verbose_name='عنوان')
+    price = models.IntegerField(verbose_name='قیمت')
+    descript = models.TextField(verbose_name='توضیحات')
+    is_active = models.BooleanField(default=True, verbose_name='فعال/غیرفعال')
+    slug = models.SlugField(max_length=300, null=True, db_index=True, blank=True, verbose_name='عنوان در شبکه')
+    brand = models.ManyToManyField(BrandModel, verbose_name='برند')
+    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, null=True, verbose_name='دسته بندی')
+    image = models.ImageField(upload_to='uploads/product_img/', null=True, verbose_name='تصویر')
 
     def save(self, *args, **kwargs):
         self.slug = self.title.replace(' ', '-')
@@ -52,4 +53,3 @@ class ProductModel(models.Model):
     class Meta:
         verbose_name = 'محصول'
         verbose_name_plural = 'محصولات'
-

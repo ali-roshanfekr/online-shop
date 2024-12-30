@@ -1,13 +1,11 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import ListView
 from .models import *
 
 
-# Create your views here.
-
 brand_title = None
+
 
 class ProductView(View):
     def get(self, request, slug):
@@ -18,7 +16,7 @@ class ProductView(View):
         else:
             products = ProductModel.objects.filter(category=category)
 
-        paginator = Paginator(products, 2)
+        paginator = Paginator(products, 6)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         brands = BrandModel.objects.all()
@@ -40,7 +38,7 @@ class ProductView(View):
             products = ProductModel.objects.filter(category=category, brand=brand)
         else:
             products = ProductModel.objects.filter(category=category)
-        paginator = Paginator(products, 2)
+        paginator = Paginator(products, 6)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         brands = BrandModel.objects.all()
@@ -52,12 +50,14 @@ class ProductView(View):
             'permission': True
         })
 
+
 class CategoryView(View):
     def get(self, request):
         categories = CategoryModel.objects.all()
         return render(request, 'category.html', {
             'categories': categories
         })
+
 
 class ProductDetailsView(View):
     def get(self, request, slug):

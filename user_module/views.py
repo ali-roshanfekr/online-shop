@@ -7,8 +7,6 @@ from .forms import *
 from utils.utils import *
 
 
-# Create your views here.
-
 class LogInView(View):
     def get(self, request):
         form = LogInForm()
@@ -69,6 +67,7 @@ class RegisterView(View):
                 'form': form,
                 'value_error': True
             })
+
 
 class ActivationCode(View):
     def get(self, request: HttpRequest):
@@ -158,6 +157,7 @@ class ActivationCodeForgetPass(View):
         else:
             raise Http404
 
+
 class ForgetPassView(View):
     def get(self, request):
         return render(request, 'forgetpass.html', {
@@ -178,6 +178,7 @@ class ForgetPassView(View):
             return render(request, 'forgetpass.html', {
                 'value_error': True
             })
+
 
 class NewPassWordView(View):
     def get(self, request):
@@ -226,4 +227,3 @@ class NewPassWordView(View):
                 'form': form,
                 'value_error': True
             })
-

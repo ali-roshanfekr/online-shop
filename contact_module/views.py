@@ -2,19 +2,33 @@ import os.path
 from django.shortcuts import render
 from django.views import View
 from django.conf import settings
-from django.http import HttpResponse
-
+from .forms import ContactForm
 
 # Create your views here.
 
 class ContactView(View):
     def get(self, request):
+        form = ContactForm
         return render(request, 'contact.html', {
-
+            'form': form
         })
 
     def post(self, request):
-        pass
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.save()
+            contact.save()
+            return render(request, 'contact.html', {
+                'form': form,
+                'success': True
+            })
+
+        else:
+            form = ContactForm
+            return render(request, 'contact.html', {
+                'form': form,
+            })
+
 
 class UploadView(View):
     def get(self, request):

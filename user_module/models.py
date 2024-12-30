@@ -1,12 +1,10 @@
 import jdatetime
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-import jalali_date
 
-# Create your models here.
 
 class User(AbstractUser):
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=300)
     active_code = models.CharField(max_length=10)
     token = models.CharField(max_length=100)
 
@@ -21,4 +19,3 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'کاربر'
         verbose_name_plural = 'کاربران'
-
