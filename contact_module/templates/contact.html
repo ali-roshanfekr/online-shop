@@ -33,29 +33,19 @@
             </div>
             <div class="span4">
                 <h4>Email Us</h4>
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post">
+                    {% csrf_token %}
                     <fieldset>
-                        <div class="control-group">
+                        {{ form }}
+                        <button class="btn btn-large" type="submit" style="width: 220px">Send Messages</button>
 
-                            <input type="text" placeholder="name" class="input-xlarge">
+                        {% if success %}
+                        	<p style="color: green">Sent Successfully</p>
+                        {% endif %}
 
-                        </div>
-                        <div class="control-group">
-
-                            <input type="text" placeholder="email" class="input-xlarge">
-
-                        </div>
-                        <div class="control-group">
-
-                            <input type="text" placeholder="subject" class="input-xlarge">
-
-                        </div>
-                        <div class="control-group">
-                            <textarea rows="3" id="textarea" class="input-xlarge"></textarea>
-
-                        </div>
-
-                        <button class="btn btn-large" type="submit">Send Messages</button>
+                        {% if error %}
+                        	<p style="color: red">Please Enter Correctly</p>
+                        {% endif %}
 
                     </fieldset>
                 </form>
