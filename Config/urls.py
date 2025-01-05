@@ -19,17 +19,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-import user_module
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home_module.urls')),
     path('users/', include('user_module.urls')),
     path('products/', include('product_module.urls')),
     path('contact/', include('contact_module.urls')),
-    path('blog-module/', include('blog_module.urls'))
+    path('blogs/', include('blog_module.urls')),
 
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

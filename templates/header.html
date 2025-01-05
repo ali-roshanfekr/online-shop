@@ -22,7 +22,8 @@
             <span class="icon-bar"></span>
         </a>
         <div class="navbar-inner">
-            <a class="brand" href="index.html"><img src="{{ logo.image }}" alt="Bootsshop"></a>
+            <a class="brand" href="index.html"><img src="{{ logo.image.url }}" width="50" height="50"
+                                                    alt="Bootsshop"></a>
             <form class="form-inline navbar-search" method="post" action="products.html">
                 <input id="srchFld" class="srchTxt" type="text">
                 <select class="srchTxt">
@@ -36,7 +37,7 @@
                 <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
             </form>
             <ul id="topMenu" class="nav pull-right">
-                <li class=""><a href="special_offer.html">Specials Offer</a></li>
+                <li class=""><a href={% url 'blogs' %}>Blogs</a></li>
                 <li class=""><a href={% url 'category' %}>Products</a></li>
                 <li class=""><a href={% url 'contact' %}>Contact</a></li>
                 <li class="">

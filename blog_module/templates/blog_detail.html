@@ -1,0 +1,135 @@
+{% extends 'layout.html' %}
+{% load render_partial %}
+{% load jalali_tags %}
+
+{% block title %}
+    مقاله
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar ================================================== -->
+            {#            {% render_partial 'home_module.views.sidebar' %}#}
+            <!-- Sidebar end=============================================== -->
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href={% url 'home' %}>Home</a> <span class="divider">/</span></li>
+                    <li><a href="products.html">Products</a> <span class="divider">/</span></li>
+                    <li class="active">product Details</li>
+                </ul>
+                <div class="row">
+                    <div id="gallery" class="span3">
+                        <a href="/static/themes/images/products/large/f1.jpg"
+                           title="Fujifilm FinePix S2950 Digital Camera">
+                            <img src="{{ blog.image.url }}" style="width:100%"
+                                 alt="Fujifilm FinePix S2950 Digital Camera">
+                        </a>
+                    </div>
+                    <div class="span6">
+                        <h3> {{ blog.title }} </h3>
+                        <hr class="soft">
+                        <form class="form-horizontal qtyFrm">
+                            <div class="control-group">
+                                <label class="control-label"><span>{{ blog.user.username }}</span></label>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="span9">
+                        <br>
+                        <ul id="productDetail" class="nav nav-tabs"></ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="home">
+                                <h5>{{ blog.title }}</h5>
+                                <p>{{ blog.text }}.<br>
+                                    {{ blog.date|to_jalali }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="response-area">
+                        <h3>پاسخ ها ({{ count }})</h3>
+                        <li class="media-list">
+                            {% for comment in comments %}
+                                <li class="media">
+                                <li class="pull-right">
+                                    <img class="media-object" src="/static/images/blog/Customer.jpg" alt="">
+                                </li>
+                                <div class="media-body">
+                                    <ul class="sinlge-post-meta">
+                                        <li><i class="fa fa-user"></i>{{ comment.user.username }}</li>
+                                        <li><i class="fa fa-clock-o"></i>{{ comment.date|to_jalali }}</li>
+                                    </ul>
+                                    <p style="text-align: right; margin-right: 10px">{{ comment.text }}</p>
+                                    <a class="btn btn-primary" onclick="set_parent({{ comment.id }})"><i
+                                            class="fa fa-reply"></i>پاسـخ</a>
+                                </div>
+                                </li>
+                                {% for comment_reply in comments_reply %}
+                                    {% if comment_reply.parent == comment %}
+                                        <li class="media">
+                                        <li class="pull-right" style="margin-right: 50px">
+                                            <img class="media-object" src="/static/images/blog/Customer.jpg" alt="">
+                                        </li>
+                                        <div class="media-body">
+                                            <ul class="sinlge-post-meta">
+                                                <li><i class="fa fa-user"></i>{{ comment_reply.user.username }}</li>
+                                                <li><i class="fa fa-clock-o"></i>{{ comment_reply.date|to_jalali }}</li>
+                                            </ul>
+                                            <p style="text-align: right; margin-right: 10px">{{ comment_reply.text }}</p>
+                                        </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                <br>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            <input name="hidden" id="hidden_inp" type="hidden" value="">
+            <textarea id="scroll_target" name="text" id="" cols="30" rows="10"
+                      style="display: flex; margin-left: 10%; width: 50%; text-align: right"></textarea>
+            <button style="width: 10%; height: 30px; margin-left: 10%; text-align: center">ثبت نظر</button>
+        </form>
+    {% endif %}
+
+    {% if user.is_authenticated == False %}
+        <li style="background-color: #f53232; width: 100%; height: 200px; text-align: center; color: white; list-style: none; font-size: 30px">
+            برای ثبت نظر وارد <a href={% url 'login' %}>حساب کاربری</a> شوید
+        </li>
+    {% endif %}
+
+    <br>
+    <br>
+    <br>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/themes/js/comment_js.js">
+
+    </script>
+{% endblock %}

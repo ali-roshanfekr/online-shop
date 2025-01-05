@@ -8,4 +8,5 @@ urlpatterns = [
     path('activation_code_forgetpass/', ActivationCodeForgetPass.as_view(), name='activation_code_forgetpass'),
     path('forgetpass/', ForgetPassView.as_view(), name='forgetpass'),
     path('new_password/', NewPassWordView.as_view(), name='new_password'),
+    path('logout/', LogOutView.as_view(), name='logout')
 ]

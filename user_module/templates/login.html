@@ -57,15 +57,19 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="controls">
-                                        <button type="submit" class="btn">Sign in</button>
+                                        <button class="btn">Sign in</button>
                                         <a href={% url 'forgetpass' %}>Forget password?</a>
                                     </div>
                                 </div>
                             </form>
+                            {% if user.is_authenticated %}
+                                <a href={% url 'logout' %}>
+                                    <button class="btn">Log Out</button>
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

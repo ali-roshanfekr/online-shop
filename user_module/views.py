@@ -1,5 +1,5 @@
-from django.contrib.auth import login
-from django.http import HttpRequest, Http404
+from django.contrib.auth import login, logout
+from django.http import HttpRequest, Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 from django.views import View
@@ -29,6 +29,12 @@ class LogInView(View):
                     login(request, user)
                     return redirect('home')
 
+                else:
+                    form = LogInForm()
+                    return render(request, 'login.html', {
+                        'form': form,
+                        'value_error': True
+                    })
             else:
                 form = LogInForm()
                 return render(request, 'login.html', {
@@ -227,3 +233,9 @@ class NewPassWordView(View):
                 'form': form,
                 'value_error': True
             })
+
+
+class LogOutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('home')

@@ -227,8 +227,9 @@
                             {% for category in categories %}
                                 <li class="span3">
                                     <div class="thumbnail">
-                                        <a href={% url 'products' category.slug %}><img src="/static/themes/images/products/3.jpg"
-                                                                            alt=""></a>
+                                        <a href={% url 'products' category.slug %}><img
+                                                src="/static/themes/images/products/3.jpg"
+                                                alt=""></a>
                                         <div class="caption">
                                             <h5>{{ category.title }}</h5>
                                         </div>

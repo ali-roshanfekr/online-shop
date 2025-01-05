@@ -4,6 +4,7 @@ from django.views import View
 from django.conf import settings
 from .forms import ContactForm
 
+
 # Create your views here.
 
 class ContactView(View):
@@ -37,23 +38,23 @@ class UploadView(View):
         })
 
     def post(self, request):
-        #دریافت فایل تصویری از صفحه html
+        # دریافت فایل تصویری از صفحه html
         image = request.FILES['image']
 
-        #تعیین یک پوشه برای قرار دادن عکس basedir/uploads/images/
+        # تعیین یک پوشه برای قرار دادن عکس basedir/uploads/images/
         uploads_dir = os.path.join(settings.MEDIA_ROOT, 'images')
 
-        #اگر مسیر وجود نداشت آن را بساز
+        # اگر مسیر وجود نداشت آن را بساز
         if not os.path.exists(uploads_dir):
             os.makedirs(uploads_dir)
 
-        #مسیر فایل تصویر را مشخص کن
+        # مسیر فایل تصویر را مشخص کن
         file_path = os.path.join(uploads_dir, image.name)
 
-        #فایل تصویر را باز کن برای خواندن و نوشتن
+        # فایل تصویر را باز کن برای خواندن و نوشتن
         with open(file_path, 'wb+') as destination:
 
-            #فایل تصویری دریافت شده را تکه به تکه بخوان و در فایل تصویر جدید بازنویسی کن
+            # فایل تصویری دریافت شده را تکه به تکه بخوان و در فایل تصویر جدید بازنویسی کن
             for chunk in image.chunks():
                 destination.write(chunk)
 
