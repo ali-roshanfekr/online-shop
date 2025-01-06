@@ -1,4 +1,6 @@
 import random
+
+
 def creat_random_code(size: int):
     var = ""
     for item in range(0, size):

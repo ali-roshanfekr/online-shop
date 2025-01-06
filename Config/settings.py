@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -135,3 +136,86 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file_debug': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR/'Config/logs/', 'debug.log'),
+            'formatter': 'verbose',
+        },
+        'file_info': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR/'Config/logs/', 'info.log'),
+            'formatter': 'verbose',
+        },
+        'file_warning': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR/'Config/logs/', 'warning.log'),
+            'formatter': 'verbose',
+        },
+        'file_error': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR/'Config/logs/', 'error.log'),
+            'formatter': 'verbose',
+        },
+        'file_critical': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR/'Config/logs/', 'critical.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file_debug', 'file_info', 'file_warning', 'file_error', 'file_critical'],
+            'level': 'DEBUG',  # سطح کلی لاگ
+            'propagate': True,
+        },
+        # Logger خاص برای لاگ‌های DEBUG
+        'debug_logger': {
+            'handlers': ['file_debug'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        # Logger خاص برای لاگ‌های INFO
+        'info_logger': {
+            'handlers': ['file_info'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        # Logger خاص برای لاگ‌های WARNING
+        'warning_logger': {
+            'handlers': ['file_warning'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        # Logger خاص برای لاگ‌های ERROR
+        'error_logger': {
+            'handlers': ['file_error'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        # Logger خاص برای لاگ‌های CRITICAL
+        'critical_logger': {
+            'handlers': ['file_critical'],
+            'level': 'CRITICAL',
+            'propagate': False,
+        },
+    },
+}
