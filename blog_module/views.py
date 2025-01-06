@@ -11,14 +11,16 @@ from .models import BlogModel, CommentModel
 class BlogView(View):
     def get(self, request):
         try:
+            info_logger = logging.getLogger('info_logger')
+            info_logger.info('This is an info message.')
             blogs = BlogModel.objects.all()
             return render(request, 'blogs.html', {
                 'blogs': blogs
             })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
 
 class BlogDetailView(View):
@@ -39,8 +41,8 @@ class BlogDetailView(View):
             })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
     def post(self, request: HttpRequest, id):
         try:
@@ -48,12 +50,13 @@ class BlogDetailView(View):
             text = request.POST.get('text')
             parent = request.POST.get('hidden')
             if parent != '':
-                new_comment = CommentModel.objects.create(user=request.user, blog=blog, text=text, parent_id=int(parent))
+                new_comment = CommentModel.objects.create(user=request.user, blog=blog, text=text,
+                                                          parent_id=int(parent))
             else:
                 new_comment = CommentModel.objects.create(user=request.user, blog=blog, text=text, parent=None)
 
             return redirect(reverse('blog_details', args=[blog.id]))
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)

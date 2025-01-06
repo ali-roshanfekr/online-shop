@@ -26,8 +26,8 @@ class HomeView(View):
             })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
 
 def header_component(request):
@@ -38,8 +38,8 @@ def header_component(request):
         })
 
     except Exception as e:
-        logging.error('An error occurred: ', e)
-        raise Http404
+        error_logger = logging.getLogger('error_logger')
+        error_logger.error('This is an error message.', e)
 
 
 def footer_component(request):
@@ -50,8 +50,8 @@ def footer_component(request):
         })
 
     except Exception as e:
-        logging.error('An error occurred: ', e)
-        raise Http404
+        error_logger = logging.getLogger('error_logger')
+        error_logger.error('This is an error message.', e)
 
 
 def slider(request):
@@ -61,8 +61,8 @@ def slider(request):
         })
 
     except Exception as e:
-        logging.error('An error occurred: ', e)
-        raise Http404
+        error_logger = logging.getLogger('error_logger')
+        error_logger.error('This is an error message.', e)
 
 
 def sidebar(request):
@@ -72,5 +72,5 @@ def sidebar(request):
         })
 
     except Exception as e:
-        logging.error('An error occurred: ', e)
-        raise Http404
+        error_logger = logging.getLogger('error_logger')
+        error_logger.error('This is an error message.', e)

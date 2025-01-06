@@ -19,8 +19,8 @@ class LogInView(View):
             })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
     def post(self, request):
         try:
@@ -58,8 +58,8 @@ class LogInView(View):
                 })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
 
 class RegisterView(View):
@@ -71,8 +71,8 @@ class RegisterView(View):
             })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
     def post(self, request: HttpRequest):
         try:
@@ -94,8 +94,8 @@ class RegisterView(View):
                 })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
 
 class ActivationCode(View):
@@ -117,8 +117,8 @@ class ActivationCode(View):
                 raise Http404
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
     def post(self, request: HttpRequest):
         try:
@@ -148,8 +148,8 @@ class ActivationCode(View):
                 raise Http404
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
 
 class ActivationCodeForgetPass(View):
@@ -171,8 +171,8 @@ class ActivationCodeForgetPass(View):
                 raise Http404
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
     def post(self, request: HttpRequest):
         try:
@@ -203,8 +203,8 @@ class ActivationCodeForgetPass(View):
                 raise Http404
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
 
 class ForgetPassView(View):
@@ -215,8 +215,8 @@ class ForgetPassView(View):
             })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
     def post(self, request: HttpRequest):
         try:
@@ -235,8 +235,8 @@ class ForgetPassView(View):
                 })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
 
 class NewPassWordView(View):
@@ -259,8 +259,8 @@ class NewPassWordView(View):
                 raise Http404
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
     def post(self, request: HttpRequest):
         try:
@@ -294,8 +294,8 @@ class NewPassWordView(View):
                 })
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
 
 
 class LogOutView(View):
@@ -305,5 +305,5 @@ class LogOutView(View):
             return redirect('home')
 
         except Exception as e:
-            logging.error('An error occurred: ', e)
-            raise Http404
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)

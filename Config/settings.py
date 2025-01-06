@@ -182,11 +182,6 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['console', 'file_debug', 'file_info', 'file_warning', 'file_error', 'file_critical'],
-            'level': 'DEBUG',  # سطح کلی لاگ
-            'propagate': True,
-        },
         # Logger خاص برای لاگ‌های DEBUG
         'debug_logger': {
             'handlers': ['file_debug'],
