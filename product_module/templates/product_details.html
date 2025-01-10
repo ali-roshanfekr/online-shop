@@ -27,7 +27,9 @@
                             <label class="control-label"><span>${{ product.price }}</span></label>
                             <div class="controls">
                                 <input type="number" class="span1" placeholder="Qty.">
-                                <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i
+                                <button type="button" class="btn btn-large btn-primary pull-right"
+                                        value="{{ product.id }}"
+                                        id="add-cart"> Add to cart <i
                                         class=" icon-shopping-cart"></i></button>
                             </div>
                         </div>
@@ -463,9 +465,11 @@
                                                     </p>
                                                     <h4 style="text-align:center"><a class="btn"
                                                                                      href="product_details.html"> <i
-                                                            class="icon-zoom-in"></i></a> <a class="btn" href="#">Add
-                                                        to <i class="icon-shopping-cart"></i></a> <a
-                                                            class="btn btn-primary" href="#">€222.00</a></h4>
+                                                            class="icon-zoom-in"></i></a>
+                                                        <a class="btn" href="#">Add to <i
+                                                                class="icon-shopping-cart"></i></a>
+                                                        <a
+                                                                class="btn btn-primary" href="#">€222.00</a></h4>
                                                 </div>
                                             </div>
                                         </li>
@@ -483,4 +487,31 @@
     </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).on('click', '#add-cart', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'cart_add' %}',
+                data: {
+                    product_id: $('#add-cart').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+
+                success: function (json) {
+                    {#console.log(json)#}
+                    document.getElementById('cart-quantity').
+                        textContent = json.qty
+                },
+
+                error: function (xhr, errmsg, err) {
+
+                }
+            });
+        })
+    </script>
 {% endblock %}

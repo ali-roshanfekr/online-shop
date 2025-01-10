@@ -1,5 +1,6 @@
 from django.db import models
 
+from user_module.models import User
 
 class CategoryModel(models.Model):
     title = models.CharField(max_length=300, verbose_name='عنوان')

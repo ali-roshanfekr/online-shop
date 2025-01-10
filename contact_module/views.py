@@ -22,6 +22,7 @@ class ContactView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
+            raise Http404
 
     def post(self, request):
         try:
@@ -43,6 +44,7 @@ class ContactView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
+            raise Http404
 
 
 class UploadView(View):
@@ -55,6 +57,7 @@ class UploadView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
+            raise Http404
 
     def post(self, request):
         try:
@@ -75,3 +78,4 @@ class UploadView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
+            raise Http404

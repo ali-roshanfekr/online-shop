@@ -35,6 +35,7 @@ class ProductView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
+            raise Http404
 
     def post(self, request, slug):
         try:
@@ -62,6 +63,7 @@ class ProductView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
+            raise Http404
 
 
 class CategoryView(View):
@@ -75,6 +77,7 @@ class CategoryView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
+            raise Http404
 
 
 class ProductDetailsView(View):
@@ -99,3 +102,4 @@ class ProductDetailsView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
+            raise Http404

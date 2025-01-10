@@ -26,6 +26,7 @@ urlpatterns = [
     path('products/', include('product_module.urls')),
     path('contact/', include('contact_module.urls')),
     path('blogs/', include('blog_module.urls')),
+    path('cart/', include('cart_module.urls')),
 
 ]
 
