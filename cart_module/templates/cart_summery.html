@@ -60,19 +60,19 @@
                     </table>
 
                     <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Description</th>
-                            <th>Quantity/Update</th>
-                            <th>Price</th>
-                            <th>Discount</th>
-                            <th>Tax</th>
-                            <th>Total</th>
-                        </tr>
-                        </thead>
-                        <tbody>
                         {% if cart_products %}
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Description</th>
+                                <th>Quantity/Update</th>
+                                <th>Price</th>
+                                <th>Discount</th>
+                                <th>Tax</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             {% for cart_product in cart_products %}
                                 <tr>
                                     <td><img width="60" src="/static/themes/images/products/4.jpg" alt=""></td>
@@ -113,11 +113,11 @@
                                     </td>
                                 </tr>
                             {% endfor %}
+                            </tbody>
                         {% else %}
                             <br>
                             There is nothing in your cart <br><br><br>
                         {% endif %}
-                        </tbody>
                     </table>
 
 

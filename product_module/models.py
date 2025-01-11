@@ -43,6 +43,7 @@ class ProductModel(models.Model):
     brand = models.ManyToManyField(BrandModel, verbose_name='برند')
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, null=True, verbose_name='دسته بندی')
     image = models.ImageField(upload_to='uploads/product_img/', null=True, verbose_name='تصویر')
+    number = models.IntegerField(default=0, verbose_name='تعداد')
 
     def save(self, *args, **kwargs):
         self.slug = self.title.replace(' ', '-')

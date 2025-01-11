@@ -3,9 +3,9 @@ from .models import *
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'price', 'is_active']
-    list_filter = ['price']
-    list_editable = ['price', 'is_active']
+    list_display = ['title', 'price', 'is_active', 'number']
+    list_filter = ['price', 'number']
+    list_editable = ['price', 'is_active', 'number']
     prepopulated_fields = {
         'slug': ['title']
     }
