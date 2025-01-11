@@ -260,7 +260,7 @@
                                             </p>
                                             <h4 style="text-align:center"><a class="btn" href={% url 'product_details' product.slug %}> <i
                                                     class="icon-zoom-in"></i></a>
-                                                <button class="btn">
+                                                <button class="btn" onclick="add({{ product.id }})">
                                                     Add to <i
                                                         class="icon-shopping-cart"></i></button>
                                                 <a class="btn btn-primary"
@@ -296,4 +296,30 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function add(product_id) {
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'cart_add' %}',
+                data: {
+                    product_id: product_id,
+                    product_qty: 1,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+
+                success: function (json) {
+                    document.getElementById('cart-quantity').
+                        textContent = json.qty
+                },
+
+                error: function (xhr, errmsg, err) {
+
+                }
+            });
+        }
+    </script>
 {% endblock %}
