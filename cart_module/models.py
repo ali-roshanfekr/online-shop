@@ -11,6 +11,9 @@ class InvoiceProductModel(models.Model):
     number = models.IntegerField(verbose_name='تعداد')
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='ساخته شده در')
 
+    def __str__(self):
+        return self.product.title + '/' + str(self.number)
+
     def get_date_fa(self):
         date_fa = jdatetime.GregorianToJalali(self.create_at.year, self.create_at.month, self.create_at.day)
         final_date = date_fa.getJalaliList()
@@ -19,6 +22,10 @@ class InvoiceProductModel(models.Model):
     def reduce(self):
         self.product.number -= 1
         self.product.save()
+
+    def total(self):
+        total = self.product.price * self.number
+        return total
 
     class Meta:
         verbose_name = 'فاکتور محصولات'
@@ -38,7 +45,7 @@ class InvoiceModel(models.Model):
     def total(self):
         total = 0
         for product in self.products.all():
-            total += int(product.product.price)*int(product.number)
+            total += int(product.product.price) * int(product.number)
 
         return total
 

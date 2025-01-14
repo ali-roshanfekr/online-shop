@@ -14,7 +14,7 @@
             <!-- Sidebar end=============================================== -->
             <div class="span9">
                 <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+                    <li><a href="{% url 'home' %}">Home</a> <span class="divider">/</span></li>
                     <li class="active">Products Name</li>
                 </ul>
                 <h3> Products Name <small class="pull-right"> 40 products are available </small></h3>
@@ -31,14 +31,15 @@
                         <label class="control-label alignL">Brand</label>
                         <form action="" method="post">
                             {% csrf_token %}
-                            <select name="brand" id="brand">
+                            <select name="brand" id="brand" aria-label="Default select example">
 
+                                <option selected>All</option>
                                 {% for brand in brands %}
                                     <option>{{ brand.title }}</option>
                                 {% endfor %}
 
                             </select>
-                            <button type="submit" class="btn">Filter</button>
+                            <button type="submit" class="btn" name="filter-button" value="filter">Filter</button>
                         </form>
                     </div>
                 </form>
@@ -258,8 +259,10 @@
                                             <p>
                                                 {{ product.descript }}
                                             </p>
-                                            <h4 style="text-align:center"><a class="btn" href={% url 'product_details' product.slug %}> <i
-                                                    class="icon-zoom-in"></i></a>
+                                            <h4 style="text-align:center"><a class="btn"
+                                                                             href={% url 'product_details' product.slug %}>
+                                                <i
+                                                        class="icon-zoom-in"></i></a>
                                                 <button class="btn" onclick="add({{ product.id }})">
                                                     Add to <i
                                                         class="icon-shopping-cart"></i></button>
@@ -312,8 +315,9 @@
                 },
 
                 success: function (json) {
-                    document.getElementById('cart-quantity').
-                        textContent = json.qty
+                    document.getElementById('cart-quantity').textContent = json.qty;
+                    document.getElementById('cart-quantity-2').textContent = json.qty;
+                    document.getElementById('cart-total').textContent = json.total;
                 },
 
                 error: function (xhr, errmsg, err) {
@@ -321,5 +325,11 @@
                 }
             });
         }
+
+        window.addEventListener('unload', function () {
+            navigator.sendBeacon('{% url "user-exit-product" %}', new URLSearchParams({
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            }));
+        });
     </script>
 {% endblock %}

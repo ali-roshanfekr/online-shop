@@ -47,3 +47,12 @@ class Cart:
             del self.cart[product_id]
 
         self.session.modified = True
+
+    def get_total(self):
+        product_ids = self.cart.keys()
+        products = ProductModel.objects.filter(id__in=product_ids)
+        total = 0
+        for product in products:
+            total += int(product.price)
+
+        return total

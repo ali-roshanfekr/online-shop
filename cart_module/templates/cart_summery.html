@@ -20,8 +20,13 @@
                     <h3> SHOPPING CART [ <small>{{ cart|length }} Item(s) </small>]
                         {% if user.is_authenticated %}
                             {% if cart_products %}
-                                <a href="{% url 'invoice' %}"
-                                   class="btn btn-large pull-right"> Pay </a>
+                                {% if user.address %}
+                                    <a href="{% url 'invoice' %}"
+                                       class="btn btn-large pull-right"> Pay </a>
+                                    {% else %}
+                                    <a href="{% url 'edit_profile' %}"
+                                    class="btn btn-large pull-right">ثبت آدرس</a>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
 
@@ -35,38 +40,12 @@
                         <table class="table table-bordered">
                             <tbody>
                             <tr>
-                                <th> I AM ALREADY REGISTERED</th>
+                                <th><a href="{% url 'login' %}">I AM ALREADY REGISTERED</a></th>
                             </tr>
                             <tr>
-                                <td>
-                                    <form class="form-horizontal">
-                                        <div class="control-group">
-                                            <label class="control-label" for="inputUsername">Username</label>
-                                            <div class="controls">
-                                                <input type="text" id="inputUsername" placeholder="Username">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="inputPassword1">Password</label>
-                                            <div class="controls">
-                                                <input type="password" id="inputPassword1" placeholder="Password">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <button type="submit" class="btn">Sign in</button>
-                                                OR <a href="register.html" class="btn">Register Now!</a>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <a href="forgetpass.html" style="text-decoration:underline">Forgot
-                                                    password
-                                                    ?</a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </td>
+                                <th>
+                                    <a href="{% url 'register' %}">REGISTER NOW</a>
+                                </th>
                             </tr>
                             </tbody>
                         </table>

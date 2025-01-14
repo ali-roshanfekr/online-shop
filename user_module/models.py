@@ -3,10 +3,36 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
+class StateModel(models.Model):
+    title = models.CharField(max_length=300, verbose_name='عنوان')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'استان'
+        verbose_name_plural = 'استان ها'
+
+
+class CityModel(models.Model):
+    title = models.CharField(max_length=300, verbose_name='شهرستان')
+    state = models.ForeignKey(StateModel, on_delete=models.CASCADE, verbose_name='استان')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'شهرستان'
+        verbose_name_plural = 'شهرستان ها'
+
+
 class User(AbstractUser):
-    phone = models.CharField(max_length=300)
+    phone = models.CharField(max_length=300, verbose_name='شماره تلفن')
     active_code = models.CharField(max_length=10)
     token = models.CharField(max_length=100)
+    address = models.CharField(max_length=300, null=True, blank=True, verbose_name='آدرس')
+    postcode = models.CharField(max_length=300, null=True, blank=True, verbose_name='کد پستی')
+    city = models.ForeignKey(CityModel, on_delete=models.PROTECT, null=True, blank=True, verbose_name='شهرستان')
 
     def __str__(self):
         return self.username

@@ -13,63 +13,125 @@
             {% render_partial 'home_module.views.sidebar' %}
             <!-- Sidebar end=============================================== -->
             <div class="span9">
-                <div class="well well-small">
-                    <h4>Featured Products <small class="pull-right">200+ featured products</small></h4>
-                    <div class="row-fluid">
-                        <div id="featured" class="carousel slide">
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <ul class="thumbnails">
-                                        {% for product in featured_products %}
-                                            <li class="span3">
-                                                <div class="thumbnail">
-                                                    <a href={% url 'product_details' product.slug %}><img
-                                                            src="/static/themes/images/products/5.jpg"
-                                                            alt=""></a>
-                                                    <div class="caption">
-                                                        <h5>Product name</h5>
-                                                        <h4><a class="btn"
-                                                               href={% url 'product_details' product.slug %}>VIEW</a>
-                                                            <span
-                                                                    class="pull-right">${{ product.price }}</span></h4>
+                {% if featured_products %}
+                    <div class="well well-small">
+                        <h4>Featured Products <small class="pull-right">200+ featured products</small></h4>
+                        <div class="row-fluid">
+                            <div id="featured" class="carousel slide">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <ul class="thumbnails">
+                                            {% for product in featured_products %}
+                                                <li class="span3">
+                                                    <div class="thumbnail">
+                                                        <a href={% url 'product_details' product.slug %}><img
+                                                                src="/static/themes/images/products/5.jpg"
+                                                                alt=""></a>
+                                                        <div class="caption">
+                                                            <h5>Product name</h5>
+                                                            <h4><a class="btn"
+                                                                   href={% url 'product_details' product.slug %}>VIEW</a>
+                                                                <span
+                                                                        class="pull-right">${{ product.price }}</span>
+                                                            </h4>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        {% endfor %}
+                                                </li>
+                                            {% endfor %}
 
-                                    </ul>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <h4>Cheapestl Products </h4>
-                <ul class="thumbnails">
-                    {% for product in latest_products %}
-                        <li class="span3">
-                            <div class="thumbnail">
-                                <a href={% url 'product_details' product.slug %}><img
-                                        src="/static/themes/images/products/11.jpg" alt=""></a>
-                                <div class="caption">
-                                    <h5>{{ product.title }}</h5>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text.
-                                    </p>
-                                    <h4 style="text-align:center"><a class="btn"
-                                                                     href={% url 'product_details' product.slug %}> <i
-                                            class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-                                            class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-                                                                                   href="#">${{ product.price }}</a>
-                                    </h4>
+                    <h4>Cheapestl Products </h4>
+                    <ul class="thumbnails">
+                        {% for product in latest_products %}
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href={% url 'product_details' product.slug %}><img
+                                            src="/static/themes/images/products/11.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>{{ product.title }}</h5>
+                                        <p>
+                                            Lorem Ipsum is simply dummy text.
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn"
+                                                                         href={% url 'product_details' product.slug %}>
+                                            <i
+                                                    class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
+                                                class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
+                                                                                       href="#">${{ product.price }}</a>
+                                        </h4>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    {% endfor %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
-                </ul>
+                {% if permission %}
+                    <ul class="thumbnails">
+                        {% for product in page_obj %}
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href={% url 'product_details' product.slug %}><img
+                                            src="/static/themes/images/products/3.jpg"
+                                            alt=""></a>
+                                    <div class="caption">
+                                        <h5>{{ product.title }}</h5>
+                                        <p>
+                                            {{ product.descript }}
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn"
+                                                                         href={% url 'product_details' product.slug %}>
+                                            <i
+                                                    class="icon-zoom-in"></i></a>
+                                            <button class="btn" onclick="add({{ product.id }})">
+                                                Add to <i
+                                                    class="icon-shopping-cart"></i></button>
+                                            <a class="btn btn-primary"
+                                               href="#">{{ product.price }}</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <hr class="soft">
+                {% endif %}
+                {% if permission %}
+                    <div class="pagination">
+                        <ul>
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}">‹</a></li>
+                            {% endif %}
 
+                            {% for page in paginator.page_range %}
+                                <li {% if page_obj.number == page %}class="active"{% endif %}><a
+                                        href="?page={{ page }}">{{ page }}</a></li>
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li><a href="?page={{ page_obj.next_page_number }}">›</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <br class="clr">
             </div>
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        window.addEventListener('unload', function () {
+            navigator.sendBeacon('{% url "user-exit" %}', new URLSearchParams({
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            }));
+        });
+    </script>
 {% endblock %}

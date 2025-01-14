@@ -1,0 +1,80 @@
+<div class="col-lg-3">
+    <nav class="woocommerce-MyAccount-navigation MyAccount-navigation-none">
+        <div class="my-account-info">
+            <a href="#" class="gravatar">
+                <img src="/static/assets/images/avatar/avatar.jpg" alt="avatar" class="img-fluid avatar">
+            </a>
+            <span class="username">حسن شجاعی</span>
+        </div>
+        <div class="my-account-menu">
+            <div class="item-menu">
+                <a href="{% url 'category' %}">
+                    <i class="fal fa-store"></i>
+                    فروشگاه
+                </a>
+            </div>
+            <div class="item-menu">
+                <a href="{% url 'cart_summery' %}">
+                    <i class="fal fa-shopping-bag"></i>
+                    سبد خرید من
+                </a>
+            </div>
+        </div>
+        <ul>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-dashboard is-active">
+                <a href="{% url 'profile' %}">
+                    <i class="fal fa-tachometer"></i>
+                    پیشخوان
+                </a>
+            </li>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-orders">
+                <a href="#">
+                    <i class="fal fa-shopping-basket"></i>
+                    سفارش ها
+                </a>
+            </li>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-wishlists">
+                <a href="#">
+                    <i class="fal fa-heart"></i>
+                    علاقه مندی ها
+                </a>
+            </li>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-notify">
+                <a href="{% url 'blogs' %}">
+                    <i class="fal fa-file-alt"></i>
+                    اطلاعیه ها
+                </a>
+            </li>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-review">
+                <a href="#">
+                    <i class="fal fa-comment-dots"></i>
+                    دیدگاه ها
+                </a>
+            </li>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-notification">
+                <a href="{% url 'blogs' %}">
+                    <i class="fal fa-bell"></i>
+                    اطلاع رسانی ها
+                </a>
+            </li>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-edit-address">
+                <a href="#">
+                    <i class="fal fa-home"></i>
+                    آدرس‌ها
+                </a>
+            </li>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-edit-account">
+                <a href="{% url 'edit_profile' %}">
+                    <i class="fal fa-user"></i>
+                    اطلاعات حساب كاربری
+                </a>
+            </li>
+            <li class="MyAccount-navigation-link MyAccount-navigation-link-customer-logout">
+                <a href="{% url 'logout' %}">
+                    <i class="fal fa-sign-in"></i>
+                    خروج از سیستم
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

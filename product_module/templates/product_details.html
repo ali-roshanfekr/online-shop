@@ -514,8 +514,9 @@
 
                 success: function (json) {
                     {#console.log(json)#}
-                    document.getElementById('cart-quantity').
-                        textContent = json.qty
+                    document.getElementById('cart-quantity').textContent = json.qty;
+                    document.getElementById('cart-quantity-2').textContent = json.qty;
+                    document.getElementById('cart-total').textContent = json.total;
                 },
 
                 error: function (xhr, errmsg, err) {

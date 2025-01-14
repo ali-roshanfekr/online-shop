@@ -1,29 +1,79 @@
 import logging
 import random
 
-from django.http import Http404
-from django.shortcuts import render
+from django.core.paginator import Paginator
+from django.http import Http404, JsonResponse
+from django.shortcuts import render, redirect
 from django.views import View
 
-from product_module.models import ProductModel
+from product_module.models import *
 from site_setting_module.models import *
+
+val = None
+category = None
 
 
 class HomeView(View):
     def get(self, request):
         try:
-            products = ProductModel.objects.all().order_by('price')
-            featured_products = []
-            latest_products = products[0:6]
+            if val or category:
+                if category == 'All':
+                    products = ProductModel.objects.filter(title__contains=str(val))
 
-            for i in range(4):
-                product = random.choice(products)
-                featured_products.append(product)
+                else:
+                    products = ProductModel.objects.filter(title__contains=str(val), category__slug=str(category))
 
-            return render(request, 'index.html', {
-                'featured_products': featured_products,
-                'latest_products': latest_products
-            })
+                paginator = Paginator(products, 6)
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
+
+                return render(request, 'index.html', {
+                    'page_obj': page_obj,
+                    'paginator': paginator,
+                    'permission': True
+                })
+
+            else:
+                products = ProductModel.objects.all().order_by('price')
+                featured_products = []
+                latest_products = products[0:6]
+
+                for i in range(4):
+                    product = random.choice(products)
+                    featured_products.append(product)
+
+                return render(request, 'index.html', {
+                    'featured_products': featured_products,
+                    'latest_products': latest_products,
+                })
+
+        except Exception as e:
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
+            raise Http404
+
+    def post(self, request):
+        try:
+            if request.POST.get('search-button') == 'search':
+                global val, category
+
+                val = request.POST.get('search-box')
+                category = request.POST.get('select-box')
+                if category == 'All':
+                    products = ProductModel.objects.filter(title__contains=str(val))
+
+                else:
+                    products = ProductModel.objects.filter(title__contains=str(val), category__slug=str(category))
+
+                paginator = Paginator(products, 6)
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
+
+                return render(request, 'index.html', {
+                    'page_obj': page_obj,
+                    'paginator': paginator,
+                    'permission': True
+                })
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
@@ -32,16 +82,33 @@ class HomeView(View):
 
 
 def header_component(request):
-    try:
-        logo = LogoModel.objects.filter(is_active=True).first()
-        return render(request, 'header.html', {
-            'logo': logo
-        })
+    if request.method == 'GET':
+        try:
+            logo = LogoModel.objects.filter(is_active=True).first()
+            categories = CategoryModel.objects.all()
+            return render(request, 'header.html', {
+                'logo': logo,
+                'categories': categories
+            })
 
-    except Exception as e:
-        error_logger = logging.getLogger('error_logger')
-        error_logger.error('This is an error message.', e)
-        raise Http404
+        except Exception as e:
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
+            raise Http404
+
+    if request.method == 'POST':
+        try:
+            logo = LogoModel.objects.filter(is_active=True).first()
+            categories = CategoryModel.objects.all()
+            return render(request, 'header.html', {
+                'logo': logo,
+                'categories': categories
+            })
+
+        except Exception as e:
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error('This is an error message.', e)
+            raise Http404
 
 
 def footer_component(request):
@@ -71,11 +138,28 @@ def slider(request):
 
 def sidebar(request):
     try:
+        categories = CategoryModel.objects.all()
+        products = ProductModel.objects.all()
         return render(request, 'sidebar.html', {
-
+            'categories': categories,
+            'product_1': random.choice(products),
+            'product_2': random.choice(products)
         })
 
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
         error_logger.error('This is an error message.', e)
         raise Http404
+
+
+class UserExit(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        global val, category
+
+        val = None
+        category = None
+
+        return JsonResponse({'status': 'success'})

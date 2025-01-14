@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'site_setting_module',
     'blog_module',
     'cart_module',
+    'profile_module',
 ]
 
 MIDDLEWARE = [

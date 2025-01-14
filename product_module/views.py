@@ -1,11 +1,12 @@
 import logging
 
 from django.core.paginator import Paginator
-from django.http import Http404
-from django.shortcuts import render
+from django.http import Http404, JsonResponse
+from django.shortcuts import render, redirect
 from django.views import View
 
 from .models import *
+from home_module.views import HomeView
 
 brand_title = None
 
@@ -17,6 +18,7 @@ class ProductView(View):
             if brand_title is not None:
                 brand = BrandModel.objects.filter(title=brand_title).first()
                 products = ProductModel.objects.filter(category=category, brand=brand)
+
             else:
                 products = ProductModel.objects.filter(category=category)
 
@@ -44,15 +46,16 @@ class ProductView(View):
             category = CategoryModel.objects.filter(slug=slug).first()
             brand_title = request.POST['brand']
             brand = BrandModel.objects.filter(title=brand_title).first()
-            if brand is not None:
+            if brand != 'All' and brand is not None:
                 products = ProductModel.objects.filter(category=category, brand=brand)
             else:
                 products = ProductModel.objects.filter(category=category)
+
             paginator = Paginator(products, 6)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
             brands = BrandModel.objects.all()
-            return render(request, 'products.html', context={
+            return render(request, 'products.html', {
                 'page_obj': page_obj,
                 'paginator': paginator,
                 'brands': brands,
@@ -103,3 +106,14 @@ class ProductDetailsView(View):
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
             raise Http404
+
+class UserExit(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        global brand_title
+
+        brand_title = None
+
+        return JsonResponse({'status': 'success'})
