@@ -33,6 +33,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=300, null=True, blank=True, verbose_name='آدرس')
     postcode = models.CharField(max_length=300, null=True, blank=True, verbose_name='کد پستی')
     city = models.ForeignKey(CityModel, on_delete=models.PROTECT, null=True, blank=True, verbose_name='شهرستان')
+    image = models.ImageField(upload_to='users', null=True, blank=True, verbose_name='تصویر')
 
     def __str__(self):
         return self.username

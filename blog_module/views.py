@@ -21,7 +21,7 @@ class BlogView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class BlogDetailView(View):
@@ -44,7 +44,7 @@ class BlogDetailView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request: HttpRequest, id):
         try:
@@ -62,4 +62,4 @@ class BlogDetailView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')

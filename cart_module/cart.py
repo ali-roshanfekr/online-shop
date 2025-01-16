@@ -5,6 +5,7 @@ class Cart:
     def __init__(self, request):
         self.session = request.session
         cart = self.session.get('session_key')
+
         if 'session_key' not in request.session:
             cart = self.session['session_key'] = {}
 
@@ -53,6 +54,6 @@ class Cart:
         products = ProductModel.objects.filter(id__in=product_ids)
         total = 0
         for product in products:
-            total += int(product.price)
+            total += int(product.price)*self.cart[str(product.id)]
 
         return total

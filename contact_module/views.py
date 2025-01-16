@@ -2,7 +2,7 @@ import logging
 import os.path
 
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.conf import settings
 
@@ -22,7 +22,7 @@ class ContactView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request):
         try:
@@ -30,6 +30,7 @@ class ContactView(View):
             if form.is_valid():
                 contact = form.save()
                 contact.save()
+                form = ContactForm
                 return render(request, 'contact.html', {
                     'form': form,
                     'success': True
@@ -44,7 +45,7 @@ class ContactView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class UploadView(View):
@@ -57,7 +58,7 @@ class UploadView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request):
         try:
@@ -78,4 +79,4 @@ class UploadView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')

@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% load render_partial %}
 {% load jalali_tags %}
+{% load poll_extras %}
 
 {% block title %}
     مقاله
@@ -43,7 +44,9 @@
                             <div class="tab-pane fade active in" id="home">
                                 <h5>{{ blog.title }}</h5>
                                 <p>{{ blog.text }}.<br>
-                                    {{ blog.date|to_jalali }}
+                                    {{ blog.date|j_time|date }}
+                                    <br>
+                                    {{ blog.date|j_time|time }}
                                 </p>
                             </div>
                         </div>
@@ -67,14 +70,14 @@
                         <h3>پاسخ ها ({{ count }})</h3>
                         <li class="media-list">
                             {% for comment in comments %}
-                                <li class="media">
+                                <li class="media">{{ comment.date|j_time|date }}</li>
                                 <li class="pull-right">
                                     <img class="media-object" src="/static/images/blog/Customer.jpg" alt="">
                                 </li>
                                 <div class="media-body">
                                     <ul class="sinlge-post-meta">
-                                        <li><i class="fa fa-user"></i>{{ comment.user.username }}</li>
-                                        <li><i class="fa fa-clock-o"></i>{{ comment.date|to_jalali }}</li>
+                                        <li><i class="fa fa-user"></i>{{ comment.date|j_time|time }}</li>
+                                        <li><i class="fa fa-clock-o"></i>{{ comment.user.username }}</li>
                                     </ul>
                                     <p style="text-align: right; margin-right: 10px">{{ comment.text }}</p>
                                     <a class="btn btn-primary" onclick="set_parent({{ comment.id }})"><i
@@ -83,14 +86,14 @@
                                 </li>
                                 {% for comment_reply in comments_reply %}
                                     {% if comment_reply.parent == comment %}
-                                        <li class="media">
+                                        <li class="media">{{ comment_reply.date|j_time|date }}</li>
                                         <li class="pull-right" style="margin-right: 50px">
                                             <img class="media-object" src="/static/images/blog/Customer.jpg" alt="">
                                         </li>
                                         <div class="media-body">
                                             <ul class="sinlge-post-meta">
-                                                <li><i class="fa fa-user"></i>{{ comment_reply.user.username }}</li>
-                                                <li><i class="fa fa-clock-o"></i>{{ comment_reply.date|to_jalali }}</li>
+                                                <li><i class="fa fa-user"></i>{{ comment_reply.date|j_time|time }}</li>
+                                                <li><i class="fa fa-clock-o"></i>{{ comment_reply.user.username }}</li>
                                             </ul>
                                             <p style="text-align: right; margin-right: 10px">{{ comment_reply.text }}</p>
                                         </div>

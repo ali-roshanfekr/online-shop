@@ -17,7 +17,11 @@
                     <li><a href={% url 'home' %}>Home</a> <span class="divider">/</span></li>
                     <li class="active">Products Name</li>
                 </ul>
-                <h3> Products Name <small class="pull-right"> 40 products are available </small></h3>
+                {% if present == 1 %}
+                    <h3> Products Name <small class="pull-right"> {{ present }} product is available </small></h3>
+                {% else %}
+                    <h3> Products Name <small class="pull-right"> {{ present }} products are available </small></h3>
+                {% endif %}
                 <hr class="soft">
                 <p>
                     Nowadays, the lingerie industry is one of the most successful business spheres.We always stay in

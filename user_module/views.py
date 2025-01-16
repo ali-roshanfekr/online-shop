@@ -21,7 +21,7 @@ class LogInView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request):
         try:
@@ -61,7 +61,7 @@ class LogInView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class RegisterView(View):
@@ -75,7 +75,7 @@ class RegisterView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request: HttpRequest):
         try:
@@ -99,7 +99,7 @@ class RegisterView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class ActivationCode(View):
@@ -123,7 +123,7 @@ class ActivationCode(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request: HttpRequest):
         try:
@@ -155,7 +155,7 @@ class ActivationCode(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class ActivationCodeForgetPass(View):
@@ -179,7 +179,7 @@ class ActivationCodeForgetPass(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request: HttpRequest):
         try:
@@ -212,7 +212,7 @@ class ActivationCodeForgetPass(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class ForgetPassView(View):
@@ -225,7 +225,7 @@ class ForgetPassView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request: HttpRequest):
         try:
@@ -246,7 +246,7 @@ class ForgetPassView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class NewPassWordView(View):
@@ -271,7 +271,7 @@ class NewPassWordView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request: HttpRequest):
         try:
@@ -307,7 +307,7 @@ class NewPassWordView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class LogOutView(View):
@@ -319,4 +319,4 @@ class LogOutView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')

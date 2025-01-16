@@ -8,6 +8,7 @@ from django.views import View
 
 from product_module.models import *
 from site_setting_module.models import *
+from site_setting_module.models import SliderModel
 
 val = None
 category = None
@@ -50,7 +51,7 @@ class HomeView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request):
         try:
@@ -78,7 +79,7 @@ class HomeView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 def header_component(request):
@@ -94,7 +95,7 @@ def header_component(request):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     if request.method == 'POST':
         try:
@@ -108,7 +109,7 @@ def header_component(request):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 def footer_component(request):
@@ -121,19 +122,20 @@ def footer_component(request):
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
         error_logger.error('This is an error message.', e)
-        raise Http404
+        return redirect('arandomaddress')
 
 
 def slider(request):
     try:
+        slides = SliderModel.objects.filter(is_active=True)
         return render(request, 'slider.html', {
-
+            'slides': slides,
         })
 
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
         error_logger.error('This is an error message.', e)
-        raise Http404
+        return redirect('arandomaddress')
 
 
 def sidebar(request):
@@ -149,7 +151,19 @@ def sidebar(request):
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
         error_logger.error('This is an error message.', e)
-        raise Http404
+        return redirect('arandomaddress')
+
+
+def scripts(request):
+    try:
+        return render(request, 'scripts.html', {
+
+        })
+
+    except Exception as e:
+        error_logger = logging.getLogger('error_logger')
+        error_logger.error('This is an error message.', e)
+        return redirect('arandomaddress')
 
 
 class UserExit(View):
@@ -163,3 +177,4 @@ class UserExit(View):
         category = None
 
         return JsonResponse({'status': 'success'})
+

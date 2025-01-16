@@ -22,6 +22,8 @@ class ProductView(View):
             else:
                 products = ProductModel.objects.filter(category=category)
 
+            present = products.filter(is_active=True)
+
             paginator = Paginator(products, 6)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
@@ -31,13 +33,14 @@ class ProductView(View):
                 'paginator': paginator,
                 'brands': brands,
                 'slug': slug,
-                'permission': True
+                'permission': True,
+                'present': len(present)
             })
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
     def post(self, request, slug):
         try:
@@ -48,8 +51,11 @@ class ProductView(View):
             brand = BrandModel.objects.filter(title=brand_title).first()
             if brand != 'All' and brand is not None:
                 products = ProductModel.objects.filter(category=category, brand=brand)
+
             else:
                 products = ProductModel.objects.filter(category=category)
+
+            present = products.filter(is_active=True)
 
             paginator = Paginator(products, 6)
             page_number = request.GET.get('page')
@@ -60,27 +66,30 @@ class ProductView(View):
                 'paginator': paginator,
                 'brands': brands,
                 'slug': slug,
-                'permission': True
+                'permission': True,
+                'present': len(present)
             })
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class CategoryView(View):
     def get(self, request):
         try:
+            present = ProductModel.objects.filter(is_active=True)
             categories = CategoryModel.objects.all()
             return render(request, 'category.html', {
-                'categories': categories
+                'categories': categories,
+                'present': len(present)
             })
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
 
 
 class ProductDetailsView(View):
@@ -105,12 +114,10 @@ class ProductDetailsView(View):
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
             error_logger.error('This is an error message.', e)
-            raise Http404
+            return redirect('arandomaddress')
+
 
 class UserExit(View):
-    def get(self, request):
-        pass
-
     def post(self, request):
         global brand_title
 
