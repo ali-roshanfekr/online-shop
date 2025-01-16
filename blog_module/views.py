@@ -1,6 +1,6 @@
 import logging
 
-from django.http import HttpRequest, Http404
+from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
@@ -20,8 +20,8 @@ class BlogView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 class BlogDetailView(View):
@@ -43,8 +43,8 @@ class BlogDetailView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
     def post(self, request: HttpRequest, id):
         try:
@@ -61,5 +61,5 @@ class BlogDetailView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')

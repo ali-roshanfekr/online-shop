@@ -1,7 +1,6 @@
 import logging
 import os.path
 
-from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views import View
 from django.conf import settings
@@ -21,8 +20,8 @@ class ContactView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
     def post(self, request):
         try:
@@ -44,8 +43,8 @@ class ContactView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 class UploadView(View):
@@ -57,8 +56,8 @@ class UploadView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
     def post(self, request):
         try:
@@ -78,5 +77,5 @@ class UploadView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')

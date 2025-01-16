@@ -66,7 +66,7 @@
                             <div class="widget">
                                 <div class="widget-content account-edit d-block p-0">
                                     <div class="checkout">
-                                        <form class="checkout-form woocommerce-checkout" method="post">
+                                        <form class="checkout-form woocommerce-checkout" method="post" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="customer-details">
                                                 <div class="woocommerce-billing-fields">
@@ -120,6 +120,17 @@
                                                             </label>
                                                             <span class="woocommerce-input-wrapper">
                                                                     {{ form.city }}
+                                                                </span>
+                                                        </div>
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <label for="billing-email" class="">تصویر
+                                                                <abbr class="required" title="ضروری">*</abbr>
+                                                            </label>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                    {% if user.image %}
+                                                                    	<img src="{{ user.image.url }}" alt="avatar" class="img-fluid avatar">
+                                                                    {% endif %}
+                                                                    <input type="file" name="image">
                                                                 </span>
                                                         </div>
                                                         <button type="submit"

@@ -5,7 +5,6 @@ from django.http import JsonResponse
 from django.views import View
 
 from .cart import Cart
-from product_module.models import ProductModel
 from .models import *
 
 
@@ -31,8 +30,8 @@ def cart_summery(request):
 
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
-        error_logger.error('This is an error message.', e)
-        return redirect('arandomaddress')
+        error_logger.error(f'This is an error message: {e}')
+        return redirect('error')
 
 
 def cart_add(request):
@@ -89,8 +88,8 @@ class InvoiceView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
     def post(self, request):
         try:
@@ -114,5 +113,5 @@ class InvoiceView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')

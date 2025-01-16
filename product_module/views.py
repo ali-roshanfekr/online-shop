@@ -1,12 +1,11 @@
 import logging
 
 from django.core.paginator import Paginator
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
 from .models import *
-from home_module.views import HomeView
 
 brand_title = None
 
@@ -39,8 +38,8 @@ class ProductView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
     def post(self, request, slug):
         try:
@@ -72,8 +71,8 @@ class ProductView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 class CategoryView(View):
@@ -88,8 +87,8 @@ class CategoryView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 class ProductDetailsView(View):
@@ -113,8 +112,8 @@ class ProductDetailsView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 class UserExit(View):

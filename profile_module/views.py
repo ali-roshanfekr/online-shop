@@ -29,8 +29,8 @@ class ProfileView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 class EditProfileView(View):
@@ -52,52 +52,46 @@ class EditProfileView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
-
-def post(self, request: HttpRequest):
-    global username
-    try:
-        form = ProfileForm(request.POST)
-        user = request.user
-        username = user.username
-        user.username = creat_random_code(100)
-        user.save()
-
-        if form.is_valid():
-            user.username = form['username'].value()
-            user.email = form['email'].value()
-            user.phone = form['phone'].value()
-            user.address = form['address'].value()
-            user.postcode = form['postcode'].value()
-            city = CityModel.objects.filter(id=form['city'].value()).first()
-            user.city = city
-
+    def post(self, request: HttpRequest):
+        global username
+        try:
+            form = ProfileForm(request.POST)
+            user = request.user
+            username = user.username
+            user.username = creat_random_code(100)
             user.save()
 
-            return redirect('profile')
+            if form.is_valid():
+                user.username = form['username'].value()
+                user.email = form['email'].value()
+                user.phone = form['phone'].value()
+                user.address = form['address'].value()
+                user.postcode = form['postcode'].value()
+                city = CityModel.objects.filter(id=form['city'].value()).first()
+                user.city = city
+                if 'image' in request.FILES:
+                    user.image = request.FILES['image']
 
-        else:
+                user.save()
+
+                return redirect('profile')
+
+            else:
+                user.username = username
+                user.save()
+                return redirect('edit_profile')
+
+        except Exception as e:
+            user = request.user
             user.username = username
             user.save()
-            form = ProfileForm(
-                initial={'username': user.username, 'email': user.email, 'phone': user.phone,
-                         'address': user.address,
-                         'postcode': user.postcode, 'city': user.city})
-            return render(request, 'edit_profile.html', {
-                'form': form,
-                'error': True
-            })
 
-    except Exception as e:
-        user = request.user
-        user.username = username
-        user.save()
-
-        error_logger = logging.getLogger('error_logger')
-        error_logger.error('This is an error message.', e)
-        return redirect('arandomaddress')
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 def second_sidebar(request):
@@ -106,5 +100,5 @@ def second_sidebar(request):
 
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
-        error_logger.error('This is an error message.', e)
-        return redirect('arandomaddress')
+        error_logger.error(f'This is an error message: {e}')
+        return redirect('error')

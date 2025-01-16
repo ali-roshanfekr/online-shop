@@ -2,7 +2,9 @@
     <nav class="woocommerce-MyAccount-navigation MyAccount-navigation-none">
         <div class="my-account-info">
             <a href="#" class="gravatar">
-                <img src="/static/assets/images/avatar/avatar.jpg" alt="avatar" class="img-fluid avatar">
+                {% if user.image %}
+                	<img src="{{ user.image.url }}" alt="avatar" class="img-fluid avatar">
+                {% endif %}
             </a>
             <span class="username">حسن شجاعی</span>
         </div>

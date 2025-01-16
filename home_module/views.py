@@ -50,8 +50,8 @@ class HomeView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
     def post(self, request):
         try:
@@ -78,8 +78,8 @@ class HomeView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 def header_component(request):
@@ -94,8 +94,8 @@ def header_component(request):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
     if request.method == 'POST':
         try:
@@ -108,8 +108,8 @@ def header_component(request):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            return redirect('arandomaddress')
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 def footer_component(request):
@@ -121,8 +121,8 @@ def footer_component(request):
 
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
-        error_logger.error('This is an error message.', e)
-        return redirect('arandomaddress')
+        error_logger.error(f'This is an error message: {e}')
+        return redirect('error')
 
 
 def slider(request):
@@ -134,8 +134,8 @@ def slider(request):
 
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
-        error_logger.error('This is an error message.', e)
-        return redirect('arandomaddress')
+        error_logger.error(f'This is an error message: {e}')
+        return redirect('error')
 
 
 def sidebar(request):
@@ -150,8 +150,8 @@ def sidebar(request):
 
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
-        error_logger.error('This is an error message.', e)
-        return redirect('arandomaddress')
+        error_logger.error(f'This is an error message: {e}')
+        return redirect('error')
 
 
 def scripts(request):
@@ -162,8 +162,8 @@ def scripts(request):
 
     except Exception as e:
         error_logger = logging.getLogger('error_logger')
-        error_logger.error('This is an error message.', e)
-        return redirect('arandomaddress')
+        error_logger.error(f'This is an error message: {e}')
+        return redirect('error')
 
 
 class UserExit(View):
@@ -178,3 +178,7 @@ class UserExit(View):
 
         return JsonResponse({'status': 'success'})
 
+
+class ErrorView(View):
+    def get(self, request):
+        raise Http404
