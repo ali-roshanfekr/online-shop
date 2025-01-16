@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    فاکتور خرید
+{% endblock %}
+
+{% block content %}
+    <div class="span9" style="margin-left: 20%">
+        <table class="table table-bordered">
+            {% if cart_products %}
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Quantity/Update</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Tax</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cart_product in cart_products %}
+                    <tr>
+                        <td><img width="60" src="/static/themes/images/products/4.jpg" alt=""></td>
+                        <td>{{ cart_product.title }}<br>{{ cart_product.descript }}</td>
+                        <td>
+                            <div class="row pull-right">
+                                <div class="col-m-2">
+                                    {% for key, value in quantities.items %}
+                                        {% if key == cart_product.id|slugify %}
+                                            {{ value }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                        <td>${{ cart_product.price }}</td>
+                        <td>$25.00</td>
+                        <td>$15.00</td>
+                        <td>
+                            {% for key, value in totals.items %}
+                                {% if key == cart_product.id|slugify %}
+                                    {{ value }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+                <form method="post">
+                    {% csrf_token %}
+                    <button class="btn-large" type="submit">Confirm</button>
+                </form>
+                <h6>TOTAL: {{ total }}</h6>
+            {% else %}
+                <br>
+                There is nothing in your cart <br><br><br>
+            {% endif %}
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

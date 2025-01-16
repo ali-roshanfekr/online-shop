@@ -1,0 +1,30 @@
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bootshop online Shopping cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="فروشگاه">
+    <meta name="author" content="روشنفکر">
+    {% include 'link.html' %}
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+
+</head>
+<body>
+{% render_partial 'home_module.views.header_component' %}
+{% block content %}
+
+{% endblock %}
+{% render_partial 'home_module.views.footer_component' %}
+</body>
+{% block scripts %}
+
+{% endblock %}
+</html>

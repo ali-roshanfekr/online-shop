@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Activation</title>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    <div class="control-group">
+        <label class="control-label" for="inputPassword1">Password</label>
+        <div class="controls">
+            <input name="num1" type="number">
+            <input name="num2" type="number">
+            <input name="num3" type="number">
+            <input name="num4" type="number">
+            <input name="num5" type="number">
+            <input name="num6" type="number">
+            <button class="btn btn-large" type="submit">Submit</button>
+        </div>
+
+    </div>
+</form>
+</body>
+</html>

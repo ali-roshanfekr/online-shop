@@ -1,0 +1,201 @@
+{% extends 'layout.html' %}
+{% load render_partial %}
+
+{% block title %}
+    سبد محصولات
+{% endblock %}
+
+{% block content %}
+    <div id="mainBody">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar ================================================== -->
+                {% render_partial 'home_module.views.sidebar' %}
+                <!-- Sidebar end=============================================== -->
+                <div class="span9">
+                    <ul class="breadcrumb">
+                        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+                        <li class="active"> SHOPPING CART</li>
+                    </ul>
+                    <h3> SHOPPING CART [ <small>{{ cart|length }} Item(s) </small>]
+                        {% if user.is_authenticated %}
+                            {% if cart_products %}
+                                <a href="{% url 'invoice' %}"
+                                   class="btn btn-large pull-right"> Pay </a>
+                            {% endif %}
+                        {% endif %}
+
+                        <a href="{% url 'category' %}"
+                           class="btn btn-large pull-right"><i
+                                class="icon-arrow-left"></i> Continue Shopping </a>
+                    </h3>
+                    <hr class="soft">
+                    {% if user.is_authenticated %}
+                    {% else %}
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th> I AM ALREADY REGISTERED</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label" for="inputUsername">Username</label>
+                                            <div class="controls">
+                                                <input type="text" id="inputUsername" placeholder="Username">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="inputPassword1">Password</label>
+                                            <div class="controls">
+                                                <input type="password" id="inputPassword1" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <button type="submit" class="btn">Sign in</button>
+                                                OR <a href="register.html" class="btn">Register Now!</a>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <a href="forgetpass.html" style="text-decoration:underline">Forgot
+                                                    password
+                                                    ?</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+
+                    <table class="table table-bordered">
+                        {% if cart_products %}
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Description</th>
+                                <th>Quantity/Update</th>
+                                <th>Price</th>
+                                <th>Discount</th>
+                                <th>Tax</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for cart_product in cart_products %}
+                                <tr>
+                                    <td><img width="60" src="/static/themes/images/products/4.jpg" alt=""></td>
+                                    <td>{{ cart_product.title }}<br>{{ cart_product.descript }}</td>
+                                    <td>
+                                        <div class="row pull-right">
+                                            <div class="col-m-2">
+                                                <select class="form-select form-select-sm"
+                                                        aria-label="Small select example" id="{{ cart_product.id }}">
+                                                    <option selected>
+                                                        {% for key, value in quantities.items %}
+                                                            {% if key == cart_product.id|slugify %}
+                                                                {{ value }}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-danger" type="button"
+                                                onclick="remove({{ cart_product.id }})"><i
+                                                class="icon-remove icon-white"></i></button>
+                                        <button class="btn" type="button" onclick="update({{ cart_product.id }})"><i
+                                                class="icon-plus"></i></button>
+                                    </td>
+                                    <td>${{ cart_product.price }}</td>
+                                    <td>$25.00</td>
+                                    <td>$15.00</td>
+                                    <td>
+                                        {% for key, value in totals.items %}
+                                            {% if key == cart_product.id|slugify %}
+                                                {{ value }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        {% else %}
+                            <br>
+                            There is nothing in your cart <br><br><br>
+                        {% endif %}
+                    </table>
+
+
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <form class="form-horizontal">
+                                    <div class="control-group">
+                                        <label class="control-label"><strong> TOTAL: {{ total }} </strong> </label>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function update(product_id) {
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'cart_update' %}',
+                data: {
+                    product_id: product_id,
+                    product_qty: $('#' + product_id).find(":selected").val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+
+                success: function (json) {
+                    location.reload()
+                },
+
+                error: function (xhr, errmsg, err) {
+
+                }
+            });
+        }
+
+        function remove(product_id) {
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'cart_delete' %}',
+                data: {
+                    product_id: product_id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+
+                success: function (json) {
+                    location.reload()
+                },
+
+                error: function (xhr, errmsg, err) {
+
+                }
+            });
+        }
+    </script>
+{% endblock %}
+

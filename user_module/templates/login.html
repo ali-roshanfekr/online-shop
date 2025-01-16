@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+{% load render_partial %}
+
+{% block title %}
+    ورود
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar ================================================== -->
+            {% render_partial 'home_module.views.sidebar' %}
+            <!-- Sidebar end=============================================== -->
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href={% url 'home' %}>Home</a> <span class="divider">/</span></li>
+                    <li class="active">Login</li>
+                </ul>
+                <h3> Login</h3>
+                <hr class="soft">
+
+                <div class="row">
+                    <div class="span4">
+                        <div class="well">
+                            <h5>CREATE YOUR ACCOUNT</h5><br>
+                            Click here to create an account.<br><br><br>
+                            <form action={% url 'register' %}>
+                                <div class="controls">
+                                    <button type="submit" class="btn block">Create Your Account</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="span1"> &nbsp;</div>
+                    <div class="span4">
+                        <div class="well">
+                            <h5>ALREADY REGISTERED ?</h5>
+                            <form method="post">
+                                {% csrf_token %}
+                                {% if value_error %}
+                                    <li style="width: 50%; background-color: red; color: white; margin: 15px; text-align: center ">
+                                        Please Enter Correctly
+                                    </li>
+                                {% endif %}
+                                <div class="control-group">
+                                    <label class="control-label" for="inputEmail1">Email</label>
+                                    <div class="controls">
+                                        {{ form.username }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPassword1">Password</label>
+                                    <div class="controls">
+                                        {{ form.password }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <button class="btn">Sign in</button>
+                                        <a href={% url 'forgetpass' %}>Forget password?</a>
+                                    </div>
+                                </div>
+                            </form>
+                            {% if user.is_authenticated %}
+                                <a href={% url 'logout' %}>
+                                    <button class="btn">Log Out</button>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
