@@ -1,4 +1,5 @@
 import logging
+import os
 
 from django.http import Http404, HttpRequest
 from django.shortcuts import render, redirect
@@ -73,6 +74,9 @@ class EditProfileView(View):
                 city = CityModel.objects.filter(id=form['city'].value()).first()
                 user.city = city
                 if 'image' in request.FILES:
+                    if user.image is not None:
+                        os.remove(str(user.image.path))
+
                     user.image = request.FILES['image']
 
                 user.save()
