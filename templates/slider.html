@@ -4,7 +4,7 @@
             {% if slide.id != 1 %}
                 <div class="item">
                     <div class="container">
-                        <a href="register.html"><img src="{{ slide.image.url }}" alt=""></a>
+                        <a href="{% url 'login' %}"><img src="{{ slide.image.url }}" alt=""></a>
                         <div class="carousel-caption">
                             <h4>Second Thumbnail label</h4>
                             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
@@ -17,7 +17,7 @@
             {% else %}
                 <div class="item active">
                     <div class="container">
-                        <a href="register.html"><img src="{{ slide.image.url }}" alt=""></a>
+                        <a href="{% url 'login' %}"><img src="{{ slide.image.url }}" alt=""></a>
                         <div class="carousel-caption">
                             <h4>Second Thumbnail label</h4>
                             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
