@@ -11,9 +11,12 @@ class InvoiceProductModel(models.Model):
     number = models.IntegerField(verbose_name='تعداد')
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='ساخته شده در')
 
+<<<<<<< HEAD
     def __str__(self):
         return self.product.title + '/' + str(self.number)
 
+=======
+>>>>>>> 68f34a6 (complete shopping cart and set a number for each product.)
     def get_date_fa(self):
         date_fa = jdatetime.GregorianToJalali(self.create_at.year, self.create_at.month, self.create_at.day)
         final_date = date_fa.getJalaliList()
@@ -23,10 +26,13 @@ class InvoiceProductModel(models.Model):
         self.product.number -= 1
         self.product.save()
 
+<<<<<<< HEAD
     def total(self):
         total = self.product.price * self.number
         return total
 
+=======
+>>>>>>> 68f34a6 (complete shopping cart and set a number for each product.)
     class Meta:
         verbose_name = 'فاکتور محصولات'
         verbose_name_plural = 'فاکتور های محصولات'
@@ -45,7 +51,11 @@ class InvoiceModel(models.Model):
     def total(self):
         total = 0
         for product in self.products.all():
+<<<<<<< HEAD
             total += int(product.product.price) * int(product.number)
+=======
+            total += int(product.product.price)*int(product.number)
+>>>>>>> 68f34a6 (complete shopping cart and set a number for each product.)
 
         return total
 
