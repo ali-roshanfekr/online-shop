@@ -20,6 +20,9 @@ class InvoiceProductModel(models.Model):
         self.product.number -= 1
         self.product.save()
 
+    def total(self):
+        return self.product.price * self.number
+
     class Meta:
         verbose_name = 'فاکتور محصولات'
         verbose_name_plural = 'فاکتور های محصولات'

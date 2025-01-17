@@ -1,0 +1,239 @@
+{% load render_partial %}
+
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اطلاعات حساب کاربری</title>
+    <!-- fontAwesome -->
+    <link rel="stylesheet" href="/static/assets/css/font-awesome.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/static/assets/css/plugins/nice-select.css">
+    <link rel="stylesheet" href="/static/assets/css/plugins/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/assets/css/plugins/noUISlider.min.css">
+    <!-- mainStyle -->
+    <link rel="stylesheet" href="/static/assets/css/main.css">
+    <link rel="stylesheet" href="/static/assets/css/responsive.css">
+</head>
+
+<body>
+<!-- content -->
+<main class="content mt-0">
+    <div class="container">
+        <div class="row">
+            <nav class="sidebar">
+                <div class="woocommerce-MyAccount-navigation">
+                    <div class="my-account-info">
+                        <a href="#" class="gravatar">
+                            <img src="/static/assets/images/avatar/avatar.jpg" alt="avatar" class="img-fluid avatar">
+                        </a>
+                        <span class="username">حسن شجاعی</span>
+                    </div>
+                    <div class="my-account-menu">
+                        <div class="item-menu">
+                            <a href="#">
+                                <i class="fal fa-store"></i>
+                                فروشگاه
+                            </a>
+                        </div>
+                        <div class="item-menu">
+                            <a href="#">
+                                <i class="fal fa-shopping-bag"></i>
+                                سبد خرید من
+                            </a>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-dashboard is-active">
+                            <a href="#">
+                                <i class="fal fa-tachometer"></i>
+                                پیشخوان
+                            </a>
+                        </li>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-orders">
+                            <a href="#">
+                                <i class="fal fa-shopping-basket"></i>
+                                سفارش ها
+                            </a>
+                        </li>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-wishlists">
+                            <a href="#">
+                                <i class="fal fa-heart"></i>
+                                علاقه مندی ها
+                            </a>
+                        </li>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-notify">
+                            <a href="#">
+                                <i class="fal fa-file-alt"></i>
+                                اطلاعیه ها
+                            </a>
+                        </li>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-review">
+                            <a href="#">
+                                <i class="fal fa-comment-dots"></i>
+                                دیدگاه ها
+                            </a>
+                        </li>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-notification">
+                            <a href="#">
+                                <i class="fal fa-bell"></i>
+                                اطلاع رسانی ها
+                            </a>
+                        </li>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-edit-address">
+                            <a href="#">
+                                <i class="fal fa-home"></i>
+                                آدرس‌ها
+                            </a>
+                        </li>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-edit-account">
+                            <a href="#">
+                                <i class="fal fa-user"></i>
+                                اطلاعات حساب كاربری
+                            </a>
+                        </li>
+                        <li class="MyAccount-navigation-link MyAccount-navigation-link-customer-logout">
+                            <a href="#">
+                                <i class="fal fa-sign-in"></i>
+                                خروج از سیستم
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="nav-btn nav-slider nav-profile">
+                <span class="linee1"></span>
+                <span class="linee2"></span>
+                <span class="linee3"></span>
+            </div>
+            <div class="overlay"></div>
+            {% render_partial 'profile_module.views.second_sidebar' %}
+            <div class="col-lg-9 col-xs-12">
+                <div class="woocommerce-MyAccount-content">
+                    {% render_partial 'profile_module.views.second_header' %}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget">
+                                <div class="widget-content account-edit d-block p-0">
+                                    <div class="checkout">
+                                        <form class="checkout-form woocommerce-checkout" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="customer-details">
+                                                <div class="woocommerce-billing-fields">
+                                                    <div class="woocommerce-billing-fields-field-wrapper">
+                                                        <!-- item -->
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <label for="billing-first-name" class="first-name">نام
+                                                                کاربری
+                                                                <abbr class="required" title="ضروری">*</abbr>
+                                                            </label>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                    {{ form.username }}
+                                                                </span>
+                                                        </div>
+                                                        <!-- item -->
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <label for="billing-email" class="">آدرس ایمیل
+                                                                <abbr class="required" title="ضروری">*</abbr>
+                                                            </label>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                    {{ form.email }}
+                                                                </span>
+                                                        </div>
+                                                        <!-- item -->
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <legend>تغییر گذرواژه</legend>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                    <a href="{% url 'forgetpass' %}"></a>
+                                                                </span>
+                                                        </div>
+                                                        <!-- item -->
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <label for="billing-phone" class="">تلفن
+                                                                <abbr class="required" title="ضروری">*</abbr>
+                                                            </label>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                    {{ form.phone }}
+                                                                </span>
+                                                        </div>
+                                                        <!-- item -->
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <label for="billing-phone" class="">شهر
+                                                                <abbr class="required" title="ضروری">*</abbr>
+                                                            </label>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                    {{ form.city }}
+                                                                </span>
+                                                        </div>
+                                                        <!-- item -->
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <label for="billing-phone" class="">آدرس
+                                                                <abbr class="required" title="ضروری">*</abbr>
+                                                            </label>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                    {{ form.address }}
+                                                                </span>
+                                                        </div>
+                                                        <!-- item -->
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <label for="billing-phone" class="">کد پستی
+                                                                <abbr class="required" title="ضروری">*</abbr>
+                                                            </label>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                    {{ form.postcode }}
+                                                                </span>
+                                                        </div>
+                                                        <!-- item -->
+                                                        <div class="form-row form-row-first validate-required">
+                                                            <label for="billing-phone" class="">تصویر
+                                                                <abbr class="required" title="ضروری">*</abbr>
+                                                            </label>
+                                                            <span class="woocommerce-input-wrapper">
+                                                                {% if user.image %}
+                                                                	<img src="{{ user.image.url }}" alt="avatar"
+                                                                         class="img-fluid avatar" style="width: 100px; height: auto">
+                                                                {% endif %}
+                                                                    <input type="file"
+                                                                           accept="image/png, image/jpeg, image/webp"
+                                                                           name="image">
+                                                                </span>
+                                                        </div>
+                                                        <button type="submit"
+                                                                class="mt-3 btn btn-secondary save-account"
+                                                                name="save-account-details">ذخیره تغییرات
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- content -->
+<!-- footer -->
+<footer class="user-footer">
+    <div class="container">
+        <div class="footer-down">
+            <div class="gototop">
+                <i class="fal fa-angle-up"></i>
+            </div>
+            <div class="copy-right">کلیه حقوق مادی و معنوی برای این سایت محفوظ می باشد.</div>
+        </div>
+    </div>
+</footer>
+<!-- footer -->
+
+{% render_partial 'profile_module.views.scripts' %}
+
+</body>
+</html>

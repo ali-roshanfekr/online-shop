@@ -1,0 +1,188 @@
+{% load jalali_tags %}
+{% load render_partial %}
+
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب کاربری</title>
+    <!-- fontAwesome -->
+    <link rel="stylesheet" href="/static/assets/css/font-awesome.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/static/assets/css/plugins/nice-select.css">
+    <link rel="stylesheet" href="/static/assets/css/plugins/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/assets/css/plugins/noUISlider.min.css">
+    <!-- mainStyle -->
+    <link rel="stylesheet" href="/static/assets/css/main.css">
+    <link rel="stylesheet" href="/static/assets/css/responsive.css">
+</head>
+
+<body>
+<!-- content -->
+<main class="content mt-0">
+    <div class="container">
+        <div class="row">
+            <div class="nav-btn nav-slider nav-profile">
+                <span class="linee1"></span>
+                <span class="linee2"></span>
+                <span class="linee3"></span>
+            </div>
+            <div class="overlay"></div>
+            {% render_partial 'profile_module.views.second_sidebar' %}
+            <div class="col-lg-9 col-xs-12">
+                <div class="woocommerce-MyAccount-content">
+                    {% render_partial 'profile_module.views.second_header' %}
+                    <div class="row">
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="widget">
+                                <div class="widget-title">
+                                    اطلاعات شخصی
+                                    <a href="{% url 'edit_profile' %}" class="widget-link">ویرایش اطلاعات</a>
+                                </div>
+                                <div class="widget-content user-detail-dashboad">
+                                    <div class="widget-content-item">
+                                        <strong>نام کاربری</strong>
+                                        <span>{{ user.username }}</span>
+                                    </div>
+                                    <div class="widget-content-item">
+                                        <strong>شماره موبایل</strong>
+                                        <span>{{ user.phone }}</span>
+                                    </div>
+                                    <div class="widget-content-item">
+                                        <strong>ایمیل</strong>
+                                        <span>{{ user.email }}</span>
+                                    </div>
+                                    <div class="widget-content-item">
+                                        <strong>عضویت</strong>
+                                        <span>{{ user.date_joined|to_jalali }}</span>
+                                    </div>
+                                    <div class="widget-content-item">
+                                        <strong>شهر</strong>
+                                        <span>{{ user.city }}</span>
+                                    </div>
+                                    <div class="widget-content-item">
+                                        <strong>کد پستی</strong>
+                                        <span>{{ user.postcode }}</span>
+                                    </div>
+                                    <div class="widget-content-item">
+                                        <strong>آدرس</strong>
+                                        <span>{{ user.address }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="widget">
+                                <div class="widget-title">
+                                    آخرین علاقه مندی ها
+                                    <a href="#" class="widget-link">مشاهده همه</a>
+                                </div>
+                                <div class="widget-content user-wishlist-dashboad">
+                                    <div class="horizontal-scroll">
+                                        <div class="item">
+                                            <div class="item-area">
+                                                <div class="product-image-area">
+                                                    <a href="#" class="product-image">
+                                                        <img src="/static/assets/images/product/apple-iphone12.webp"
+                                                             alt="profile" class="img-fluid">
+                                                    </a>
+                                                </div>
+                                                <div class="product-detail-area">
+                                                    <h3 class="product-name">
+                                                        گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت
+                                                        ظرفیت 128 گیگابایت
+                                                    </h3>
+                                                    <div class="wishlist-act">
+                                                        <a href="#" class="view">مشاهده</a>
+                                                        <div class="add-to-wishlist">
+                                                            <a href="#" class="remove">حذف</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-title">
+                            آخرین سفارشات
+                            <a href="#" class="widget-link">ویرایش اطلاعات</a>
+                        </div>
+                        <div class="widget-content">
+                            <table class="table table-orders table-responsive">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">نام محصول</th>
+                                    <th scope="col">تاریخ ثبت سفارش</th>
+                                    <th scope="col">مبلغ قابل پرداخت</th>
+                                    <th scope="col">مبلغ کل</th>
+                                    <th scope="col">عملیات پرداخت</th>
+                                    <th scope="col">جزئیات</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for invoice in invoices %}
+                                    {% for product in invoice.products.all %}
+                                        <tr>
+                                            <td>{{ product.number }}</td>
+                                            <td class="order-code">
+                                                {{ product.product }} {{ product.product.descript }}
+                                            </td>
+                                            <td>{{ invoice.create_at|to_jalali }}</td>
+                                            <td>
+                                                <span class="price text-primary">{{ product.total }}
+                                                    <span class="amount text-secondary">تومان</span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="price text-primary">{{ product.total }}
+                                                    <span class="amount text-secondary">تومان</span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="success-payment">
+                                                    پرداخت موفق
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="details">
+                                                    <i class="fal fa-angle-left"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- content -->
+<!-- footer -->
+<footer class="user-footer">
+    <div class="container">
+        <div class="footer-down">
+            <div class="gototop">
+                <i class="fal fa-angle-up"></i>
+            </div>
+            <div class="copy-right">کلیه حقوق مادی و معنوی برای این سایت محفوظ می باشد.</div>
+        </div>
+    </div>
+</footer>
+<!-- footer -->
+
+{% render_partial 'profile_module.views.scripts' %}
+
+</body>
+</html>

@@ -1,17 +1,11 @@
 <div class="container">
     <div id="welcomeLine" class="row">
-        <div class="span6">Welcome!<strong>{{ user.username }}</strong></div>
+        <div class="span6">Welcome! <strong>{{ user.username }}</strong></div>
         <div class="span6">
             <div class="pull-right">
-                <a href="product_summary.html"><span class="">Fr</span></a>
-                <a href="product_summary.html"><span class="">Es</span></a>
-                <span class="btn btn-mini">En</span>
-                <a href="product_summary.html"><span>£</span></a>
-                <span class="btn btn-mini">$155.00</span>
-                <a href="#"><span class="">$</span></a>
                 <a href={% url 'cart_summery' %}><span class="btn btn-mini btn-primary"><i
-                        class="icon-shopping-cart icon-white"></i> [ <h
-                                            id="cart-quantity">{{ cart|length }}</h> ] Itemes in your cart </span> </a>
+                        class="icon-shopping-cart icon-white"></i> [ {{ cart|length }} ] Itemes in your cart </span>
+                </a>
             </div>
         </div>
     </div>
@@ -23,17 +17,16 @@
             <span class="icon-bar"></span>
         </a>
         <div class="navbar-inner">
-            <a class="brand" href="index.html"><img src="{{ logo.image.url }}" width="50" height="50"
+            <a class="brand" href="{% url 'home' %}"><img src="{{ logo.image.url }}" width="50" height="50"
                                                     alt="Bootsshop"></a>
-            <form class="form-inline navbar-search" method="post" action="products.html">
-                <input id="srchFld" class="srchTxt" type="text">
-                <select class="srchTxt">
-                    <option>All</option>
-                    <option>CLOTHES</option>
-                    <option>FOOD AND BEVERAGES</option>
-                    <option>HEALTH &amp; BEAUTY</option>
-                    <option>SPORTS &amp; LEISURE</option>
-                    <option>BOOKS &amp; ENTERTAINMENTS</option>
+            <form class="form-inline navbar-search" method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+                <input class="srchTxt" type="text" name="text">
+                <select class="srchTxt" name="category">
+                    <option selected>All</option>
+                    {% for category in categories %}
+                        <option value="{{ category.slug }}">{{ category }}</option>
+                    {% endfor %}
                 </select>
                 <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
             </form>
@@ -41,6 +34,9 @@
                 <li class=""><a href={% url 'blogs' %}>Blogs</a></li>
                 <li class=""><a href={% url 'category' %}>Products</a></li>
                 <li class=""><a href={% url 'contact' %}>Contact</a></li>
+                {% if user.is_authenticated %}
+                	<li class=""><a href={% url 'profile' %}>Profile</a></li>
+                {% endif %} 
                 <li class="">
                     <a href={% url 'login' %} role="button" data-toggle="modal" style="padding-right:0"><span
                             class="btn btn-large btn-success">Login</span></a>

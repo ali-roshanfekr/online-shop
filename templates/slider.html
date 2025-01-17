@@ -1,68 +1,34 @@
 <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner">
-        <div class="item">
-            <div class="container">
-                <a href="register.html"><img style="width:100%" src="/static/themes/images/carousel/1.png"
-                                             alt="special offers"></a>
-                <div class="carousel-caption">
-                    <h4>Second Thumbnail label</h4>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        {% for slide in slides %}
+            {% if slide.id == 1 %}
+                <div class="item active">
+                    <div class="container">
+                        <a href="{% url 'home' %}"><img style="margin-bottom: 20px; width: 100%" src="{{ slide.image.url }}" alt=""></a>
+                        <div class="carousel-caption">
+                            <h4>Second Thumbnail label</h4>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
+                                gravida
+                                at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="container">
-                <a href="register.html"><img style="width:100%" src="/static/themes/images/carousel/2.png" alt=""></a>
-                <div class="carousel-caption">
-                    <h4>Second Thumbnail label</h4>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            {% else %}
+                <div class="item">
+                    <div class="container">
+                        <a href="{% url 'home' %}"><img style="width:100%; margin-bottom: 20px" src="{{ slide.image.url }}"
+                                                     alt="special offers"></a>
+                        <div class="carousel-caption">
+                            <h4>Second Thumbnail label</h4>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
+                                gravida
+                                at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="container">
-                <a href="register.html"><img src="/static/themes/images/carousel/3.png" alt=""></a>
-                <div class="carousel-caption">
-                    <h4>Second Thumbnail label</h4>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
+            {% endif %}
+        {% endfor %}
 
-            </div>
-        </div>
-        <div class="item">
-            <div class="container">
-                <a href="register.html"><img src="/static/themes/images/carousel/4.png" alt=""></a>
-                <div class="carousel-caption">
-                    <h4>Second Thumbnail label</h4>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-
-            </div>
-        </div>
-        <div class="item active">
-            <div class="container">
-                <a href="register.html"><img src="/static/themes/images/carousel/5.png" alt=""></a>
-                <div class="carousel-caption">
-                    <h4>Second Thumbnail label</h4>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="container">
-                <a href="register.html"><img src="/static/themes/images/carousel/6.png" alt=""></a>
-                <div class="carousel-caption">
-                    <h4>Second Thumbnail label</h4>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-            </div>
-        </div>
     </div>
     <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
     <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
