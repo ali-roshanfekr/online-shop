@@ -99,9 +99,9 @@ def header_component(request):
 
 def footer_component(request):
     try:
-        ins_link = LinkModel.objects.filter(title='instagram', is_active=True).first()
+        links = LinkModel.objects.filter(is_active=True)
         return render(request, 'footer.html', {
-            'ins_link': ins_link,
+            'links': links,
         })
 
     except Exception as e:

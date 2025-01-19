@@ -28,25 +28,29 @@
                             <div class="controls">
                                 <div class="row pull-left">
                                     <div class="col-m-2">
-                                        <select class="form-select form-select-sm" aria-label="Default select example" id="qty-cart">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">1</option>
+                                        <select class="form-select form-select-sm" aria-label="Default select example"
+                                                id="qty-cart">
+                                            <option selected value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
+                                            <option value="4">4</option>
                                         </select>
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-large btn-primary pull-right"
                                         value="{{ product.id }}"
-                                        id="add-cart"> Add to cart <i
+                                        onclick="cart_add({{ product.id }})"> Add to cart <i
                                         class=" icon-shopping-cart"></i></button>
                             </div>
                         </div>
                     </form>
 
                     <hr class="soft">
-                    <h4>100 items in stock</h4>
-                    <form class="form-horizontal qtyFrm pull-right">
+                    <button type="button" class="btn btn-large btn-primary pull-right"
+                            value="{{ product.id }}"
+                            onclick="favorites_add({{ product.id }})"> Add to favorites
+                    </button>
+                    <form class="form-horizontal qtyFrm">
                         <div class="control-group">
                             <label class="control-label"><span>Color</span></label>
                             <div class="controls">
@@ -500,13 +504,12 @@
 
 {% block scripts %}
     <script>
-        $(document).on('click', '#add-cart', function (e) {
-            e.preventDefault();
+        function cart_add(product_id) {
             $.ajax({
                 type: 'POST',
                 url: '{% url 'cart_add' %}',
                 data: {
-                    product_id: $('#add-cart').val(),
+                    product_id: product_id,
                     product_qty: $('#qty-cart option:selected').text(),
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
@@ -519,7 +522,51 @@
                 error: function (xhr, errmsg, err) {
 
                 }
+            })
+        }
+
+        function favorites_add(id) {
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'favorites_add' %}',
+                data: {
+                    product_id: id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+
+                success: function (json) {
+                    location.reload();
+                },
+
+                error: function (xhr, errmsg, err) {
+
+                }
             });
-        })
+        }
     </script>
 {% endblock %}
+
+
+
+
+{#$(document).on('click', '#add-cart', function (e) {#}
+{#    e.preventDefault();#}
+{#    $.ajax({#}
+{#        type: 'POST',#}
+{#        url: '{% url 'cart_add' %}',#}
+{#        data: {#}
+{#            product_id: $('#add-cart').val(),#}
+{#            product_qty: $('#qty-cart option:selected').text(),#}
+{#            csrfmiddlewaretoken: '{{ csrf_token }}',#}
+{#            action: 'post'#}
+{#        },#}
+{##}
+{#        success: function (json) {#}
+{#            location.reload();#}
+{#        },#}
+{##}
+{#        error: function (xhr, errmsg, err) {#}
+{#            console.log('error')#}
+{#        }#}
+{#    });#}

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'blog_module',
     'cart_module',
     'profile_module',
+    'favorites_module',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +75,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart_module.context_processors.cart',
+                'favorites_module.context_processors.favorites',
             ],
         },
     },

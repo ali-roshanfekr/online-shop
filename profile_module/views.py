@@ -8,6 +8,7 @@ from cart_module.models import InvoiceModel
 from user_module.models import CityModel
 from .forms import ProfileForm
 from utils.utils import creat_random_code
+from favorites_module.favorites import Favorites
 
 username = None
 
@@ -15,10 +16,13 @@ username = None
 class ProfileView(View):
     def get(self, request):
         if request.user.is_authenticated:
+            favorites = Favorites(request)
+            favorite_products = favorites.get_prods()
             invoice_list = InvoiceModel.objects.filter(user=request.user)
             invoices = invoice_list[0:2]
             return render(request, 'profile.html', {
-                'invoices': invoices
+                'invoices': invoices,
+                'favorite_products': favorite_products,
             })
 
         else:

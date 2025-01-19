@@ -82,28 +82,32 @@
                                 </div>
                                 <div class="widget-content user-wishlist-dashboad">
                                     <div class="horizontal-scroll">
-                                        <div class="item">
-                                            <div class="item-area">
-                                                <div class="product-image-area">
-                                                    <a href="#" class="product-image">
-                                                        <img src="/static/assets/images/product/apple-iphone12.webp"
-                                                             alt="profile" class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="product-detail-area">
-                                                    <h3 class="product-name">
-                                                        گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت
-                                                        ظرفیت 128 گیگابایت
-                                                    </h3>
-                                                    <div class="wishlist-act">
-                                                        <a href="#" class="view">مشاهده</a>
-                                                        <div class="add-to-wishlist">
-                                                            <a href="#" class="remove">حذف</a>
+                                        {% for favorite_product in favorite_products %}
+                                            <div class="item">
+                                                <div class="item-area">
+                                                    <div class="product-image-area">
+                                                        <a href="#" class="product-image">
+                                                            <img src="/static/assets/images/product/apple-iphone12.webp"
+                                                                 alt="profile" class="img-fluid">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-detail-area">
+                                                        <h3 class="product-name">
+                                                            {{ favorite_product.title }}
+                                                        </h3>
+                                                        <div class="wishlist-act">
+                                                            <a href="{% url 'product_details' favorite_product.slug %}"
+                                                               class="view">مشاهده</a>
+                                                            <div class="add-to-wishlist">
+                                                                <a onclick="remove({{ favorite_product.id }})" class="remove">حذف</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            {% empty %}
+                                                <strong>شما هیج چیز در سبد علاقه مندی ندارید!</strong>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -183,6 +187,26 @@
 <!-- footer -->
 
 {% render_partial 'profile_module.views.scripts' %}
-
 </body>
+<script>
+    function remove(product_id) {
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'favorites_delete' %}',
+            data: {
+                product_id: product_id,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+
+            success: function (json) {
+                location.reload()
+            },
+
+            error: function (xhr, errmsg, err) {
+
+            }
+        });
+    }
+</script>
 </html>

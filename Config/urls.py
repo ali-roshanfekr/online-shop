@@ -28,7 +28,7 @@ urlpatterns = [
     path('blogs/', include('blog_module.urls')),
     path('cart/', include('cart_module.urls')),
     path('profile/', include('profile_module.urls')),
-
+    path('favorites/', include('favorites_module.urls')),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,17 +2,17 @@
     <div class="row">
         <div class="span3">
             <h5>ACCOUNT</h5>
-            <a href="login.html">YOUR ACCOUNT</a>
-            <a href="login.html">PERSONAL INFORMATION</a>
-            <a href="login.html">ADDRESSES</a>
-            <a href="login.html">DISCOUNT</a>
-            <a href="login.html">ORDER HISTORY</a>
+            <a href="{% url 'login' %}">YOUR ACCOUNT</a>
+            <a href="{% url 'login' %}">PERSONAL INFORMATION</a>
+            <a href="{% url 'login' %}">ADDRESSES</a>
+            <a href="{% url 'login' %}">DISCOUNT</a>
+            <a href="{% url 'login' %}">ORDER HISTORY</a>
         </div>
         <div class="span3">
             <h5>INFORMATION</h5>
-            <a href="contact.html">CONTACT</a>
-            <a href="register.html">REGISTRATION</a>
-            <a href="legal_notice.html">LEGAL NOTICE</a>
+            <a href="{% url 'contact' %}">CONTACT</a>
+            <a href="{% url 'register' %}">REGISTRATION</a>
+            <a href="{% url 'blogs' %}">LEGAL NOTICE</a>
             <a href="tac.html">TERMS AND CONDITIONS</a>
             <a href="faq.html">FAQ</a>
         </div>
@@ -26,13 +26,11 @@
         </div>
         <div id="socialMedia" class="span3 pull-right">
             <h5>SOCIAL MEDIA </h5>
-            <a href={{ ins_link.link }}><img width="60" height="60" src="/static/themes/images/facebook.png"
+            {% for link in links %}
+                <a href={{ link.link }}><img width="60" height="60" src="{{ link.image.url }}"
                                              title="facebook"
                                              alt="facebook"></a>
-            <a href="#"><img width="60" height="60" src="/static/themes/images/twitter.png" title="twitter"
-                             alt="twitter"></a>
-            <a href="#"><img width="60" height="60" src="/static/themes/images/youtube.png" title="youtube"
-                             alt="youtube"></a>
+            {% endfor %}
         </div>
     </div>
     <p class="pull-right">© Bootshop</p>
