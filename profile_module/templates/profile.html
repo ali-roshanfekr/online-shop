@@ -86,7 +86,8 @@
                                             <div class="item">
                                                 <div class="item-area">
                                                     <div class="product-image-area">
-                                                        <a href="#" class="product-image">
+                                                        <a href="{% url 'product_details' favorite_product.slug %}"
+                                                           class="product-image">
                                                             <img src="/static/assets/images/product/apple-iphone12.webp"
                                                                  alt="profile" class="img-fluid">
                                                         </a>
@@ -99,14 +100,15 @@
                                                             <a href="{% url 'product_details' favorite_product.slug %}"
                                                                class="view">مشاهده</a>
                                                             <div class="add-to-wishlist">
-                                                                <a onclick="remove({{ favorite_product.id }})" class="remove">حذف</a>
+                                                                <a onclick="remove({{ favorite_product.id }})"
+                                                                   class="remove">حذف</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            {% empty %}
-                                                <strong>شما هیج چیز در سبد علاقه مندی ندارید!</strong>
+                                        {% empty %}
+                                            <strong>شما هیج چیز در سبد علاقه مندی ندارید!</strong>
                                         {% endfor %}
                                     </div>
                                 </div>
