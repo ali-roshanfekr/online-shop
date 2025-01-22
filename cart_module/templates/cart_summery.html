@@ -93,19 +93,13 @@
                                     <td>
                                         <div class="row pull-right">
                                             <div class="col-m-2">
-                                                <select class="form-select form-select-sm"
-                                                        aria-label="Small select example" id="{{ cart_product.id }}">
-                                                    <option selected>
-                                                        {% for key, value in quantities.items %}
-                                                            {% if key == cart_product.id|slugify %}
-                                                                {{ value }}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
+                                                {% for key, value in quantities.items %}
+                                                    {% if key == cart_product.id|slugify %}
+                                                        <input type="number" id="{{ cart_product.id }}" min="1"
+                                                               max="300"
+                                                               value="{{ value }}" onkeydown="return false">
+                                                    {% endif %}
+                                                {% endfor %}
                                             </div>
                                         </div>
                                         <button class="btn btn-danger" type="button"
@@ -162,7 +156,7 @@
                 url: '{% url 'cart_update' %}',
                 data: {
                     product_id: product_id,
-                    product_qty: $('#' + product_id).find(":selected").val(),
+                    product_qty: $('#' + product_id).val(),
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
