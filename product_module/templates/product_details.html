@@ -28,13 +28,7 @@
                             <div class="controls">
                                 <div class="row pull-left">
                                     <div class="col-m-2">
-                                        <select class="form-select form-select-sm" aria-label="Default select example"
-                                                id="qty-cart">
-                                            <option selected value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
+                                        <input type="number" id="qty-cart" min="1" max="300" value="1" onkeydown="return false">
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-large btn-primary pull-right"
@@ -510,7 +504,7 @@
                 url: '{% url 'cart_add' %}',
                 data: {
                     product_id: product_id,
-                    product_qty: $('#qty-cart option:selected').text(),
+                    product_qty: $('#qty-cart').val(),
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
