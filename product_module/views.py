@@ -2,6 +2,7 @@ import logging
 
 from django.core.paginator import Paginator
 from django.http import Http404
+from django.db.models import Q
 from django.shortcuts import render
 from django.views import View
 
@@ -34,8 +35,8 @@ class ProductView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            raise Http404
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
     def post(self, request, slug):
         try:
@@ -62,8 +63,8 @@ class ProductView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            raise Http404
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 class CategoryView(View):
@@ -76,8 +77,8 @@ class CategoryView(View):
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            raise Http404
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
 
 
 class ProductDetailsView(View):
@@ -94,12 +95,15 @@ class ProductDetailsView(View):
                 else:
                     brands += ', ' + brand.title
 
+            related_products = ProductModel.objects.filter(Q(brand__title__in=brands) | Q(category=product.category))
+
             return render(request, 'product_details.html', {
                 'product': product,
-                'brands': brands
+                'brands': brands,
+                'related_products': related_products[0:6]
             })
 
         except Exception as e:
             error_logger = logging.getLogger('error_logger')
-            error_logger.error('This is an error message.', e)
-            raise Http404
+            error_logger.error(f'This is an error message: {e}')
+            return redirect('error')
