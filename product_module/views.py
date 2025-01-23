@@ -3,7 +3,7 @@ import logging
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from .models import *
