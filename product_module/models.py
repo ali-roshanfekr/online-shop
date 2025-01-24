@@ -5,6 +5,7 @@ from user_module.models import User
 class CategoryModel(models.Model):
     title = models.CharField(max_length=300, verbose_name='عنوان')
     slug = models.SlugField(max_length=300, null=True, db_index=True, blank=True, verbose_name='عنوان در شبکه')
+    image = models.ImageField(upload_to='category', null=True, verbose_name='تصویر')
 
     def save(self, *args, **kwargs):
         self.slug = self.title.replace(' ', '-')

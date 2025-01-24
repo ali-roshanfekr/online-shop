@@ -9,18 +9,15 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <!-- Sidebar ================================================== -->
-            {#            {% render_partial 'home_module.views.sidebar' %}#}
-            <!-- Sidebar end=============================================== -->
             <div class="span9">
                 <ul class="breadcrumb">
                     <li><a href={% url 'home' %}>Home</a> <span class="divider">/</span></li>
-                    <li><a href="products.html">Products</a> <span class="divider">/</span></li>
-                    <li class="active">product Details</li>
+                    <li><a href="{% url 'blogs' %}">Products</a> <span class="divider">/</span></li>
+                    <li class="active">{{ blog.title }}</li>
                 </ul>
                 <div class="row">
                     <div id="gallery" class="span3">
-                        <a href="/static/themes/images/products/large/f1.jpg"
+                        <a href="{{ blog.image.url }}"
                            title="Fujifilm FinePix S2950 Digital Camera">
                             <img src="{{ blog.image.url }}" style="width:100%"
                                  alt="Fujifilm FinePix S2950 Digital Camera">
@@ -68,13 +65,17 @@
                         <li class="media-list">
                             {% for comment in comments %}
                                 <li class="media">
-                                <li class="pull-right">
-                                    <img class="media-object" src="/static/images/blog/Customer.jpg" alt="">
+                                <li class="pull-right" style="list-style-type: none">
+                                    <img class="media-object" src="{{ user.image.url }}"
+                                         style="width: 100px" alt="">
                                 </li>
                                 <div class="media-body">
                                     <ul class="sinlge-post-meta">
-                                        <li><i class="fa fa-user"></i>{{ comment.user.username }}</li>
-                                        <li><i class="fa fa-clock-o"></i>{{ comment.date|to_jalali }}</li>
+                                        <li style="list-style-type: none">
+                                            <i class="fa fa-user"></i>{{ comment.user.username }}</li>
+
+                                        <li style="list-style-type: none">
+                                            <i class="fa fa-clock-o"></i>{{ comment.date|to_jalali }}</li>
                                     </ul>
                                     <p style="text-align: right; margin-right: 10px">{{ comment.text }}</p>
                                     <a class="btn btn-primary" onclick="set_parent({{ comment.id }})"><i

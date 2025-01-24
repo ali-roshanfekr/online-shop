@@ -9,22 +9,22 @@
     </ul>
     <br>
     <div class="thumbnail">
-        <img src="/static/themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera">
+        <img src="{{ random_product_1.image.url }}" alt="Bootshop panasonoc New camera">
         <div class="caption">
             <h5>{{ random_product_1.title }}</h5>
             <h4 style="text-align:center"><a class="btn" href="{% url 'product_details' random_product_1.slug %}"> <i
                     class="icon-zoom-in"></i></a> <a class="btn" onclick="add({{ random_product_1.id }})">Add to <i
-                    class="icon-shopping-cart"></i></a> <a class="btn btn-primary">{{ random_product_2.price }}</a></h4>
+                    class="icon-shopping-cart"></i></a> <a class="btn btn-primary">${{ random_product_2.price }}</a></h4>
         </div>
     </div>
     <br>
     <div class="thumbnail">
-        <img src="/static/themes/images/products/kindle.png" title="Bootshop New Kindel" alt="Bootshop Kindel">
+        <img src="{{ random_product_2.image.url }}" title="Bootshop New Kindel" alt="Bootshop Kindel">
         <div class="caption">
             <h5>{{ random_product_2.title }}</h5>
             <h4 style="text-align:center"><a class="btn" href="{% url 'product_details' random_product_2.slug %}"> <i
                     class="icon-zoom-in"></i></a> <a class="btn" onclick="add({{ random_product_2.id }})">Add to <i
-                    class="icon-shopping-cart"></i></a> <a class="btn btn-primary">{{ random_product_2.price }}</a></h4>
+                    class="icon-shopping-cart"></i></a> <a class="btn btn-primary">${{ random_product_2.price }}</a></h4>
         </div>
     </div>
     <br>

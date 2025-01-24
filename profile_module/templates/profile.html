@@ -88,7 +88,7 @@
                                                     <div class="product-image-area">
                                                         <a href="{% url 'product_details' favorite_product.slug %}"
                                                            class="product-image">
-                                                            <img src="/static/assets/images/product/apple-iphone12.webp"
+                                                            <img src="{{ favorite_product.image.url }}"
                                                                  alt="profile" class="img-fluid">
                                                         </a>
                                                     </div>

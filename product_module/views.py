@@ -1,7 +1,6 @@
 import logging
 
 from django.core.paginator import Paginator
-from django.http import Http404
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import View
@@ -18,6 +17,7 @@ class ProductView(View):
             if brand_title is not None:
                 brand = BrandModel.objects.filter(title=brand_title).first()
                 products = ProductModel.objects.filter(category=category, brand=brand)
+
             else:
                 products = ProductModel.objects.filter(category=category)
 
@@ -30,7 +30,8 @@ class ProductView(View):
                 'paginator': paginator,
                 'brands': brands,
                 'slug': slug,
-                'permission': True
+                'permission': True,
+                'len': len(products)
             })
 
         except Exception as e:
@@ -47,8 +48,10 @@ class ProductView(View):
             brand = BrandModel.objects.filter(title=brand_title).first()
             if brand is not None:
                 products = ProductModel.objects.filter(category=category, brand=brand)
+
             else:
                 products = ProductModel.objects.filter(category=category)
+
             paginator = Paginator(products, 6)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
@@ -58,7 +61,8 @@ class ProductView(View):
                 'paginator': paginator,
                 'brands': brands,
                 'slug': slug,
-                'permission': True
+                'permission': True,
+                'len': len(products)
             })
 
         except Exception as e:
@@ -71,8 +75,10 @@ class CategoryView(View):
     def get(self, request):
         try:
             categories = CategoryModel.objects.all()
+            products = ProductModel.objects.filter(is_active=True)
             return render(request, 'category.html', {
-                'categories': categories
+                'categories': categories,
+                'len': len(products)
             })
 
         except Exception as e:
