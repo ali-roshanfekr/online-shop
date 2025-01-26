@@ -6,9 +6,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from cart_module.models import InvoiceModel
-from user_module.models import CityModel
 from .forms import ProfileForm
-from utils.utils import creat_random_code
 from favorites_module.favorites import Favorites
 
 username = None
@@ -41,14 +39,7 @@ class EditProfileView(View):
         try:
             if request.user.is_authenticated:
                 user = request.user
-                form = ProfileForm(initial={
-                    'username': user.username,
-                    'phone': user.phone,
-                    'email': user.email,
-                    'city': user.city,
-                    'address': user.address,
-                    'postcode': user.postcode,
-                })
+                form = ProfileForm(instance=user)
                 return render(request, 'edit_profile.html', {
                     'form': form
                 })
@@ -67,43 +58,15 @@ class EditProfileView(View):
                 global username
 
                 user = request.user
-                form = ProfileForm(request.POST)
-                username = user.username
-                user.username = creat_random_code(50)
-                user.save()
+                form = ProfileForm(request.POST or None, instance=user)
 
                 if form.is_valid():
-                    user.username = form['username'].value()
-                    user.email = form['email'].value()
-                    user.phone = form['phone'].value()
-                    if 'city' in form:
-                        city = CityModel.objects.filter(id=form['city'].value()).first()
-                        user.city = city
-
-                    user.address = form['address'].value()
-                    user.postcode = form['postcode'].value()
-                    if 'image' in request.FILES:
-
-                        if user.image:
-                            os.remove(user.image.path)
-                        user.image = request.FILES['image']
-
-                    user.save()
+                    form.save()
 
                     return redirect('profile')
 
                 else:
-                    user.username = username
-                    user.save()
-
-                    form = ProfileForm(initial={
-                        'username': user.username,
-                        'phone': user.phone,
-                        'email': user.email,
-                        'city': user.city,
-                        'address': user.address,
-                        'postcode': user.postcode,
-                    })
+                    form = ProfileForm(instance=user)
 
                     return render(request, 'edit_profile.html', {
                         'form': form,
